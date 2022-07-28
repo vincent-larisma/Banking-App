@@ -1,12 +1,12 @@
 import React from 'react'
 
 //Component
-import userDisplay from './Components/userDisplay'
+import UserDisplay from './Components/UserDisplay'
 
 function App() {
   return (
     <>
-      <userDisplay />
+      <UserDisplay />
     </>
   )
 }
