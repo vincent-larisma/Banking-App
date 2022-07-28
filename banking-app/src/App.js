@@ -1,8 +1,14 @@
-import logo from './logo.svg'
-import './App.css'
+import React from 'react'
+
+//Component
+import userDisplay from './Components/userDisplay'
 
 function App() {
-  return <></>
+  return (
+    <>
+      <userDisplay />
+    </>
+  )
 }
 
 export default App
