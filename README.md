@@ -7,13 +7,13 @@ Page for creating a user using email and password - vince
 Function for Deposit -  
 Withdraw - 
 Transfer - 
-Check Balance -
+Check Balance - 
 
 4 features
 
 dark mode - vince
 reward when opening app - evan
-
+graphs/investment 
 
 All design features will depend on your ideas
 
