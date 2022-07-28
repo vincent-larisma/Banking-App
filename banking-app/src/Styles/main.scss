@@ -1,0 +1,11 @@
+//Resetter
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+//UserDisplay
+@import './userDisplay.scss';
