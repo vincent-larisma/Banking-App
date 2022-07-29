@@ -6,10 +6,11 @@ export default function UserDisplay() {
     userName: '',
     userBalance: 0,
     userList: [],
-  })
+  }) //Contains the user input
 
   const { userList, userEmail, userBalance, userName } = user
 
+  //HandleChange function for the user input
   const handleChangeName = (e) => {
     const { value, name } = e.target
     setUser({ ...user, [name]: value })
@@ -22,32 +23,41 @@ export default function UserDisplay() {
     const { value, name } = e.target
     setUser({ ...user, [name]: value })
   }
+  //Push the user input to userList
   const handleClickCreateUser = (e) => {
     let list = userList
     const listedUsers = { Name: '', Email: '', Balance: 0, ID: Date.now() }
-    listedUsers.Name = userName
-    listedUsers.Email = userEmail
-    listedUsers.Balance = userBalance
-    list.push(listedUsers)
-    setUser({ ...user, userList: list })
+    //Don't create users if email or name is empty
+    if (userName !== '' && userEmail !== '') {
+      listedUsers.Name = userName
+      listedUsers.Email = userEmail
+      listedUsers.Balance = userBalance
+      list.push(listedUsers)
+      setUser({ ...user, userList: list })
+      setUser({ ...user, userName: '', userEmail: '', userBalance: 0 })
+    }
+  }
+  //Prevent from reloading
+  const handleSubmitUser = (e) => {
+    e.preventDefault()
   }
   return (
     <>
       <div>
         <h2>Create User</h2>
-        <form>
+        <form onSubmit={handleSubmitUser}>
           <div>
             <span>Name:</span>
-            <input type='text' name='userName' onChange={handleChangeName} required />
+            <input type='text' name='userName' value={userName} required onChange={handleChangeName} />
           </div>
           <div>
             <span>Email:</span>
-            <input type='email' name='userEmail' required onChange={handleChangeEmail} />
+            <input type='email' name='userEmail' value={userEmail} required onChange={handleChangeEmail} />
           </div>
 
           <div>
             <span>Balance:</span>
-            <input type='number' name='userBalance' onChange={handleChangeBalance} />
+            <input type='number' name='userBalance' value={userBalance} onChange={handleChangeBalance} />
             <span>(Optional)</span>
           </div>
           <button type='submit' onClick={handleClickCreateUser}>
@@ -81,10 +91,11 @@ export default function UserDisplay() {
               <button>DELETE USER</button>
             </td>
           </tr>
+          {/* Displays the userList  */}
           {userList.length ? (
             userList.map(({ Name, Email, Balance, ID }, index) => {
               return (
-                <tr>
+                <tr key={index}>
                   <td>{Name}</td>
                   <td>{ID}</td>
                   <td>{Email}</td>
@@ -98,7 +109,7 @@ export default function UserDisplay() {
               )
             })
           ) : (
-            <span>No records</span>
+            <th colSpan='5'>No Users Yet</th>
           )}
         </tbody>
       </table>
