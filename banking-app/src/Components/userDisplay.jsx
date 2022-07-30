@@ -24,7 +24,7 @@ export default function UserDisplay() {
     setUser({ ...user, [name]: value })
   }
   //Push the user input to userList
-  const handleClickCreateUser = (e) => {
+  const handleClickCreateUser = () => {
     let list = userList
     const listedUsers = { Name: '', Email: '', Balance: 0, ID: Date.now() }
     //Don't create users if email or name is empty
@@ -40,6 +40,13 @@ export default function UserDisplay() {
   //Prevent from reloading
   const handleSubmitUser = (e) => {
     e.preventDefault()
+  }
+
+  //Delet User Function
+  const handleClickDelete = (index) => {
+    let list = userList
+    list.splice(index, 1)
+    setUser({ ...user, userList: list })
   }
   return (
     <>
@@ -103,7 +110,7 @@ export default function UserDisplay() {
                   <td>
                     <button>WITHDRAW</button>
                     <button>TRANSFER</button>
-                    <button>DELETE USER</button>
+                    <button onClick={() => handleClickDelete(index)}>DELETE USER</button>
                   </td>
                 </tr>
               )
