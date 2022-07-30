@@ -24,7 +24,7 @@ export default function UserDisplay() {
     setUser({ ...user, [name]: value })
   }
   //Push the user input to userList
-  const handleClickCreateUser = (e) => {
+  const handleClickCreateUser = () => {
     let list = userList
     const listedUsers = { Name: '', Email: '', Balance: 0, ID: Date.now() }
     //Don't create users if email or name is empty
