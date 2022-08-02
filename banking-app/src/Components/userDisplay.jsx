@@ -12,6 +12,59 @@ export default function UserDisplay() {
     userList: [],
   }) //Contains the user input
 
+  const [newUserBalance, setNewUserBalance] = useState({
+    userBalanceDeposit: 0,
+    userBalanceWithdraw: 0,
+    editIndex: '',
+  })
+
+  // const [newTransactions, setNewTransactions] = useState({
+  //   transactionLogs: '',
+  //   logIndex: ''
+  // })
+
+  const { editIndex, userBalanceDeposit, userBalanceWithdraw } = newUserBalance
+  // const { logIndex, transactionLogs} = newTransactions
+  // const { isUpdateLogs, setIsUpdateLogs } = useState(false)
+  const [ isUpdateDeposit, setIsUpdateDeposit ] = useState(false)
+  const [ isUpdateWithdraw, setIsUpdateWithdraw ] = useState(false)
+
+  //update to true
+  const handleClickDeposit = (index) => {
+    setIsUpdateDeposit(true)
+    setNewUserBalance({ ...newUserBalance, editIndex: index })
+    console.log(newUserBalance)
+  }
+
+  const handleChangeDepositUpdate = (e) => {
+    const { value, name } = e.target
+    setNewUserBalance({ ...newUserBalance, [name]: value })
+  }
+
+  //update to true
+  const handleClickWithdraw = (index) => {
+    setIsUpdateWithdraw(true)
+    setNewUserBalance({ ...newUserBalance, editIndex: index })
+    console.log(newUserBalance)
+  }
+
+  const handleChangeWithdrawUpdate = (e) => {
+    const { value, name } = e.target
+    setNewUserBalance({ ...newUserBalance, [name]: value })
+  }
+
+  // const handleClickTransactions = (index) => {
+  //   setIsUpdateLogs(true)
+  //   setNewTransactions({ ...newTransactions, logIndex: index})
+  //   console.log(newTransactions)
+  // }
+
+  // const handleUpdateTransactions = (e) => {
+
+  // }
+
+
+
   const { userList, userEmail, userBalance, userName } = user
 
   //HandleChange function for the user input
@@ -39,6 +92,7 @@ export default function UserDisplay() {
       list.push(listedUsers)
       setUser({ ...user, userList: list })
       setUser({ ...user, userName: '', userEmail: '', userBalance: 0 })
+      // logHistory(index);
     }
   }
   //Prevent from reloading
@@ -54,6 +108,31 @@ export default function UserDisplay() {
 
     
   }
+
+  const handleClickNewDeposit = () => {
+    let list = userList
+    list[editIndex].Balance = parseInt(list[editIndex].Balance) + parseInt(userBalanceDeposit)
+    setUser({ ...user, userList: list })
+    setIsUpdateDeposit(false)
+    // logHistory(index)
+  }
+
+  const handleClickNewWithdraw = () => {
+    let list = userList
+    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw) ) {
+      return false;
+    } else {  
+      if ( parseInt(userBalanceWithdraw) % 100 === 0 ){
+        list[editIndex].Balance = parseInt(list[editIndex].Balance) - parseInt(userBalanceWithdraw)
+        setUser({ ...user, userList: list })
+        setIsUpdateWithdraw(false)
+        // logHistory(index)
+      } else {
+        return false;
+      }
+    }
+  }
+
   return (
     <>
     <Modal />
@@ -116,11 +195,11 @@ export default function UserDisplay() {
                   <td>{Email}</td>
                   <td>${Balance}</td>
                   <td>
-                  <button>WITHDRAW</button>
-                    <button>DEPOSIT</button>
+                    <button onClick={() => handleClickWithdraw(index)}>Withdraw</button>
+                    <button onClick={() => handleClickDeposit(index)}>Deposit</button>
                     <button>TRANSFER</button>
                     <button onClick={() => handleClickDelete(index)}>DELETE USER</button>
-                   
+                    {/* <button onClick={() => handleClickTransactions(index)}>Transactions</button> */}
                   </td>
                 </tr>
               )
@@ -130,6 +209,34 @@ export default function UserDisplay() {
           )}
         </tbody>
       </table>
+      {isUpdateDeposit && (
+        <div>
+          <span>
+            {userList[editIndex].Name} {userList[editIndex].ID}
+          </span>
+          <input
+            type='number'
+            name='userBalanceDeposit'
+            value={userBalanceDeposit}
+            onChange={handleChangeDepositUpdate}
+          />
+          <button onClick={handleClickNewDeposit}>Deposit</button>
+        </div>
+      )}
+      {isUpdateWithdraw && (
+        <div>
+          <span>
+            {userList[editIndex].Name} {userList[editIndex].ID}
+          </span>
+          <input
+            type='number'
+            name='userBalanceWithdraw'
+            value={userBalanceWithdraw}
+            onChange={handleChangeWithdrawUpdate}
+          />
+          <button onClick={handleClickNewWithdraw}>Withdraw</button>
+        </div>
+      )}
     </>
   )
 }
