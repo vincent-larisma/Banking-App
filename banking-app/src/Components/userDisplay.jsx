@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import Modal from './Modal'
+
+
+
 
 export default function UserDisplay() {
   const [user, setUser] = useState({
@@ -101,6 +105,8 @@ export default function UserDisplay() {
     let list = userList
     list.splice(index, 1)
     setUser({ ...user, userList: list })
+
+    
   }
 
   const handleClickNewDeposit = () => {
@@ -129,6 +135,7 @@ export default function UserDisplay() {
 
   return (
     <>
+    <Modal />
       <div>
         <h2>Create User</h2>
         <form onSubmit={handleSubmitUser}>
@@ -173,6 +180,7 @@ export default function UserDisplay() {
             <td>$0</td>
             <td>
               <button>WITHDRAW</button>
+              <button>DEPOSIT</button>
               <button>TRANSFER</button>
               <button>DELETE USER</button>
             </td>
