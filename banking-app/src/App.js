@@ -3,7 +3,7 @@ import React from 'react'
 
 //Component
 import UserDisplay from './Components/UserDisplay'
-import Modal from './Components/Modal'
+//import Modal from './Components/Modal'
 
 function App() {
 

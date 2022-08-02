@@ -1,50 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
+import { useEffect } from "react";
 
 
-export default function Modal() {
-  const [modal, setModal] = useState(false);
-
-
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-
-  if(modal) {
-    document.body.classList.add('active-modal')
-  } else {
-    document.body.classList.remove('active-modal')
-  }
+export default function Modal(props) {
 
   return (
     <>
 
-      <button onClick={toggleModal} className="btn-modal">
-        WITHDRAW
-      </button>
-
-      <button onClick={toggleModal} className="btn-modal">
-        DEPOSIT
-      </button>
-
-      <button onClick={toggleModal} className="btn-modal">
-        TRANSFER
-      </button>
-
-      {modal && (
-        <div className="modal">
-          <div onClick={toggleModal} className="overlay"></div>
+      {props.isOpen && (
+        <div id='modalcomponent' className="modal active-modal">
+          <div onClick={props.toggleModal} className="overlay"></div>
           <div className="modal-content">
-            <input type="Amount:" id="amount-label"  placeholder="Enter Amount" />
+            {props.method === 'deposit' &&<input type="Amount:" id="amount-label"  placeholder="Enter Amount" />}
             <button>Submit</button>
-            <button className="close-modal" onClick={toggleModal}>
+            <button className="close-modal" onClick={props.toggleModal}>
               x
             </button>
           </div>
         </div>
       )}
 
-
-        
        </>
   );
 }

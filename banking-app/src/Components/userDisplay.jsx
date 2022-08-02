@@ -67,6 +67,9 @@ export default function UserDisplay() {
 
   const { userList, userEmail, userBalance, userName } = user
 
+  const [depositModal, setDepositModal] = useState(false);
+  const [withdrawModal, setWithdrawModal] = useState(false);
+
   //HandleChange function for the user input
   const handleChangeName = (e) => {
     const { value, name } = e.target
@@ -106,6 +109,7 @@ export default function UserDisplay() {
     list.splice(index, 1)
     setUser({ ...user, userList: list })
 
+    //new Modal
     
   }
 
@@ -133,9 +137,17 @@ export default function UserDisplay() {
     }
   }
 
+  const toggleDepositModal = () => {
+    setDepositModal(!depositModal);
+  }
+    const toggleWithdrawModal = () => {
+      setWithdrawModal(!withdrawModal);
+  };
   return (
     <>
-    <Modal />
+    <Modal method='deposit' isOpen={depositModal} toggleModal={toggleDepositModal}/>
+    <Modal method='withdraw' isOpen={withdrawModal} toggleModal={toggleWithdrawModal}/>
+   
       <div>
         <h2>Create User</h2>
         <form onSubmit={handleSubmitUser}>
