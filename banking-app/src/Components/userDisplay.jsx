@@ -251,22 +251,7 @@ export default function UserDisplay() {
     {isUpdateTransfer && (
         <div>
           <span>
-            Transfer to: 
-                  <div class="elements1">
-                    <label class="cstat">Civil Status</label>  
-                    <select id="dropdown">
-                    <option value = "Single"> Single   
-                    </option>  
-                    <option value = "Married"> Married   
-                    </option>  
-                    <option value = "Widowed"> Widowed  
-                    </option>  
-                    <option value = "Separated"> Separated
-                    </option>
-                    <option value = "Divoced"> Divorced
-                    </option>
-                    </select>
-                </div>
+            Transfer to:
           </span>
           <input
             type='number'
