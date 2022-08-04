@@ -5,31 +5,30 @@ export default function UserDisplay() {
     userEmail: '',
     userName: '',
     userBalance: 0,
+    logsList: [],
     userList: [],
   }) //Contains the user input
 
   const [newUserBalance, setNewUserBalance] = useState({
     userBalanceDeposit: 0,
     userBalanceWithdraw: 0,
+    userTransfer: 0,
     editIndex: '',
   })
 
-  // const [newTransactions, setNewTransactions] = useState({
-  //   transactionLogs: '',
-  //   logIndex: ''
-  // })
-
   const { editIndex, userBalanceDeposit, userBalanceWithdraw } = newUserBalance
-  // const { logIndex, transactionLogs} = newTransactions
-  // const { isUpdateLogs, setIsUpdateLogs } = useState(false)
+  
+  //const [ isUpdateLogs, setIsUpdateLogs ] = useState(false)
+
   const [ isUpdateDeposit, setIsUpdateDeposit ] = useState(false)
   const [ isUpdateWithdraw, setIsUpdateWithdraw ] = useState(false)
+  const [ isUpdateTransfer, setIsUpdateTransfer ] = useState(false)
 
   //update to true
   const handleClickDeposit = (index) => {
     setIsUpdateDeposit(true)
     setNewUserBalance({ ...newUserBalance, editIndex: index })
-    console.log(newUserBalance)
+    // console.log(newUserBalance)
   }
 
   const handleChangeDepositUpdate = (e) => {
@@ -41,7 +40,12 @@ export default function UserDisplay() {
   const handleClickWithdraw = (index) => {
     setIsUpdateWithdraw(true)
     setNewUserBalance({ ...newUserBalance, editIndex: index })
-    console.log(newUserBalance)
+    // console.log(newUserBalance)
+  }
+
+  const handleClickTransfer = (index) =>{
+    setIsUpdateTransfer(true)
+    setNewUserBalance({ ...newUserBalance, editIndex: index})
   }
 
   const handleChangeWithdrawUpdate = (e) => {
@@ -50,16 +54,12 @@ export default function UserDisplay() {
   }
 
   // const handleClickTransactions = (index) => {
+  //   let list = userList
   //   setIsUpdateLogs(true)
-  //   setNewTransactions({ ...newTransactions, logIndex: index})
-  //   console.log(newTransactions)
+  //   // setNewTransactions({ ...newTransactions, logIndex: index})
+  //   // console.log(newTransactions)
+  //   // console.log(list)
   // }
-
-  // const handleUpdateTransactions = (e) => {
-
-  // }
-
-
 
   const { userList, userEmail, userBalance, userName } = user
 
@@ -76,6 +76,7 @@ export default function UserDisplay() {
     const { value, name } = e.target
     setUser({ ...user, [name]: value })
   }
+
   //Push the user input to userList
   const handleClickCreateUser = () => {
     let list = userList
@@ -88,7 +89,8 @@ export default function UserDisplay() {
       list.push(listedUsers)
       setUser({ ...user, userList: list })
       setUser({ ...user, userName: '', userEmail: '', userBalance: 0 })
-      // logHistory(index);
+      console.log(list);
+      // logHistory('You created your account!', '', editIndex)
     }
   }
   //Prevent from reloading
@@ -108,24 +110,38 @@ export default function UserDisplay() {
     list[editIndex].Balance = parseInt(list[editIndex].Balance) + parseInt(userBalanceDeposit)
     setUser({ ...user, userList: list })
     setIsUpdateDeposit(false)
-    // logHistory(index)
+    // logHistory('Deposit', userBalanceDeposit, editIndex)
   }
 
   const handleClickNewWithdraw = () => {
     let list = userList
-    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw) ) {
+    //let logsValue = list.logList
+    //console.log(logsValue);
+    if ( (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw) ) || (parseInt(userBalanceWithdraw) === 0) ) {
       return false;
     } else {  
       if ( parseInt(userBalanceWithdraw) % 100 === 0 ){
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - parseInt(userBalanceWithdraw)
         setUser({ ...user, userList: list })
         setIsUpdateWithdraw(false)
-        // logHistory(index)
+        console.log(list);
+        // logHistory('Withdraw', userBalanceWithdraw, editIndex)
       } else {
         return false;
       }
     }
   }
+
+  // const logHistory = ( transaction, value, index ) => {
+  //   let newList = transactionLogs
+  //   const transactionList = { Todo: '', Amount: ''}
+  //   transactionList[index].Todo = transaction
+  //   transactionList[index].Amount = value
+  //   newList.push(transactionList)
+  //   setNewTransactions({ ...newTransactions, transactionLogs: newList})
+  //   setNewTransactions({ ...newTransactions, transaction: '', value: ''})
+  //   console.log(newList)
+  // }
 
   return (
     <>
@@ -189,7 +205,7 @@ export default function UserDisplay() {
                   <td>
                     <button onClick={() => handleClickWithdraw(index)}>Withdraw</button>
                     <button onClick={() => handleClickDeposit(index)}>Deposit</button>
-                    <button>TRANSFER</button>
+                    <button onClick={() => handleClickTransfer(index)}>TRANSFER</button>
                     <button onClick={() => handleClickDelete(index)}>DELETE USER</button>
                     {/* <button onClick={() => handleClickTransactions(index)}>Transactions</button> */}
                   </td>
@@ -201,6 +217,7 @@ export default function UserDisplay() {
           )}
         </tbody>
       </table>
+
       {isUpdateDeposit && (
         <div>
           <span>
@@ -215,6 +232,7 @@ export default function UserDisplay() {
           <button onClick={handleClickNewDeposit}>Deposit</button>
         </div>
       )}
+
       {isUpdateWithdraw && (
         <div>
           <span>
@@ -229,6 +247,53 @@ export default function UserDisplay() {
           <button onClick={handleClickNewWithdraw}>Withdraw</button>
         </div>
       )}
+
+    {isUpdateTransfer && (
+        <div>
+          <span>
+            Transfer to: 
+                  <div class="elements1">
+                    <label class="cstat">Civil Status</label>  
+                    <select id="dropdown">
+                    <option value = "Single"> Single   
+                    </option>  
+                    <option value = "Married"> Married   
+                    </option>  
+                    <option value = "Widowed"> Widowed  
+                    </option>  
+                    <option value = "Separated"> Separated
+                    </option>
+                    <option value = "Divoced"> Divorced
+                    </option>
+                    </select>
+                </div>
+          </span>
+          <input
+            type='number'
+            name='userBalanceWithdraw'
+            value={userBalanceWithdraw}
+            onChange={handleChangeWithdrawUpdate}
+          />
+          <button onClick={handleClickNewWithdraw}>Withdraw</button>
+        </div>
+      )}      
+
+      {/* {isUpdateLogs && (
+        <div>
+          {transactionLogs.length ? (
+            transactionLogs.map(({ Todo, Amount }, index) => {
+              return (
+                <tr key={index}>
+                  <td>{transactionLogs[index].Todo}</td>
+                  <td>{transactionLogs[index].Amount}</td>
+                </tr>
+              )
+            })
+          ) : (
+            <th colSpan='5'>No Transactions Yet</th>
+          )}
+        </div>
+      )} */}
     </>
   )
 }
