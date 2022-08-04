@@ -22,8 +22,8 @@ export default function UserDisplay() {
   const { editIndex, userBalanceDeposit, userBalanceWithdraw } = newUserBalance
   // const { logIndex, transactionLogs} = newTransactions
   // const { isUpdateLogs, setIsUpdateLogs } = useState(false)
-  const [ isUpdateDeposit, setIsUpdateDeposit ] = useState(false)
-  const [ isUpdateWithdraw, setIsUpdateWithdraw ] = useState(false)
+  const [isUpdateDeposit, setIsUpdateDeposit] = useState(false)
+  const [isUpdateWithdraw, setIsUpdateWithdraw] = useState(false)
 
   //update to true
   const handleClickDeposit = (index) => {
@@ -58,8 +58,6 @@ export default function UserDisplay() {
   // const handleUpdateTransactions = (e) => {
 
   // }
-
-
 
   const { userList, userEmail, userBalance, userName } = user
 
@@ -101,6 +99,8 @@ export default function UserDisplay() {
     let list = userList
     list.splice(index, 1)
     setUser({ ...user, userList: list })
+    setIsUpdateWithdraw(false)
+    setIsUpdateDeposit(false)
   }
 
   const handleClickNewDeposit = () => {
@@ -113,16 +113,16 @@ export default function UserDisplay() {
 
   const handleClickNewWithdraw = () => {
     let list = userList
-    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw) ) {
-      return false;
-    } else {  
-      if ( parseInt(userBalanceWithdraw) % 100 === 0 ){
+    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw)) {
+      return false
+    } else {
+      if (parseInt(userBalanceWithdraw) % 100 === 0) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - parseInt(userBalanceWithdraw)
         setUser({ ...user, userList: list })
         setIsUpdateWithdraw(false)
         // logHistory(index)
       } else {
-        return false;
+        return false
       }
     }
   }
@@ -130,31 +130,32 @@ export default function UserDisplay() {
   return (
     <>
       <div>
-        <h2>Create User</h2>
+        <h2 className='subtitle'>Create User</h2>
         <form onSubmit={handleSubmitUser}>
-          <div>
-            <span>Name:</span>
+          <div className='field'>
+            <label className='label'>Name:</label>
             <input type='text' name='userName' value={userName} required onChange={handleChangeName} />
           </div>
-          <div>
-            <span>Email:</span>
+          <div className='field'>
+            <label className='label'>Email:</label>
             <input type='email' name='userEmail' value={userEmail} required onChange={handleChangeEmail} />
           </div>
 
-          <div>
-            <span>Balance:</span>
+          <div className='field'>
+            <label className='label'>Balance:</label>
             <input type='number' name='userBalance' value={userBalance} onChange={handleChangeBalance} />
             <span>(Optional)</span>
           </div>
-          <button type='submit' onClick={handleClickCreateUser}>
+          <button className='button is-success is-small' type='submit' onClick={handleClickCreateUser}>
             Create User
           </button>
         </form>
       </div>
 
-      <table>
+      <table className='table is-striped is-narrow is-hoverable is-fullwidth'>
         <caption>
-          <h2>Bank Users</h2>
+          {' '}
+          <h1 className='title'>Bank Users</h1>
         </caption>
         <thead>
           <tr>
@@ -172,9 +173,9 @@ export default function UserDisplay() {
             <td>testEmail@gmail.com</td>
             <td>$0</td>
             <td>
-              <button>WITHDRAW</button>
-              <button>TRANSFER</button>
-              <button>DELETE USER</button>
+              <button className='button is-primary'>WITHDRAW</button>
+              <button className='button is-primary'>TRANSFER</button>
+              <button className='button is-danger'>DELETE USER</button>
             </td>
           </tr>
           {/* Displays the userList  */}
@@ -187,10 +188,16 @@ export default function UserDisplay() {
                   <td>{Email}</td>
                   <td>${Balance}</td>
                   <td>
-                    <button onClick={() => handleClickWithdraw(index)}>Withdraw</button>
-                    <button onClick={() => handleClickDeposit(index)}>Deposit</button>
-                    <button>TRANSFER</button>
-                    <button onClick={() => handleClickDelete(index)}>DELETE USER</button>
+                    <button className='button is-primary' onClick={() => handleClickWithdraw(index)}>
+                      Withdraw
+                    </button>
+                    <button className='button is-primary' onClick={() => handleClickDeposit(index)}>
+                      Deposit
+                    </button>
+                    <button className='button is-primary'>TRANSFER</button>
+                    <button className='button is-danger' onClick={() => handleClickDelete(index)}>
+                      DELETE USER
+                    </button>
                     {/* <button onClick={() => handleClickTransactions(index)}>Transactions</button> */}
                   </td>
                 </tr>
