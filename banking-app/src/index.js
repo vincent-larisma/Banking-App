@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import 'bulma'
 
-
 //Styles
 import './Styles/main.scss'
 
@@ -13,7 +12,3 @@ root.render(
     <App />
   </React.StrictMode>
 )
-
-
-)
-

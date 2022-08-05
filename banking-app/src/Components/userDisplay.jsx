@@ -15,13 +15,10 @@ export default function UserDisplay() {
     userBalanceTransfer: 0,
     userToTransfer: 0,
     editIndex: '',
-
   })
 
-
   const { editIndex, userBalanceDeposit, userBalanceWithdraw, userBalanceTransfer, userToTransfer } = newUserBalance
-  // const { logIndex, transactionLogs} = newTransactions
-  // const { isUpdateLogs, setIsUpdateLogs } = useState(false)
+
   const [isUpdateDeposit, setIsUpdateDeposit] = useState(false)
   const [isUpdateWithdraw, setIsUpdateWithdraw] = useState(false)
   const [isUpdateTransfer, setIsUpdateTransfer] = useState(false)
@@ -66,22 +63,11 @@ export default function UserDisplay() {
     console.log(newUserBalance)
   }
 
-  // const handleClickTransactions = (index) => {
-  //   setIsUpdateLogs(true)
-  //   setNewTransactions({ ...newTransactions, logIndex: index})
-  //   console.log(newTransactions)
-  // }
-
-  // const handleUpdateTransactions = (e) => {
-
-  // }
-
   const { userList, userEmail, userBalance, userName } = user
 
-  const [depositModal, setDepositModal] = useState(false);
-  const [withdrawModal, setWithdrawModal] = useState(false);
+  const [depositModal, setDepositModal] = useState(false)
+  const [withdrawModal, setWithdrawModal] = useState(false)
 
-  //HandleChange function for the user input
   const handleChangeName = (e) => {
     const { value, name } = e.target
     setUser({ ...user, [name]: value })
@@ -125,9 +111,9 @@ export default function UserDisplay() {
 
   const handleClickNewDeposit = (value) => {
     let list = userList
-    list[editIndex].Balance = parseInt(list[editIndex].Balance) + value;
-    setUser({ ...user, userList: list });
-    setIsUpdateDeposit(false);
+    list[editIndex].Balance = parseInt(list[editIndex].Balance) + value
+    setUser({ ...user, userList: list })
+    setIsUpdateDeposit(false)
     console.log('edit index', editIndex)
   }
 
@@ -135,16 +121,13 @@ export default function UserDisplay() {
     console.log('withdraw clicked')
     let list = userList
 
-    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw) ) {
-      return false;
-
-    } else {  
-      if ( parseInt(userBalanceWithdraw) % 100 === 0 ){
-
+    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw)) {
+      return false
+    } else {
+      if (parseInt(userBalanceWithdraw) % 100 === 0) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - parseInt(userBalanceWithdraw)
         setUser({ ...user, userList: list })
         setIsUpdateWithdraw(false)
-        // logHistory(index)
       } else {
         return false
       }
@@ -152,14 +135,8 @@ export default function UserDisplay() {
   }
   const handleClickNewTransfer = () => {
     let list = userList
-    //let copyIndex
     let i
 
-    // console.log(list);
-    // console.log(userToTransfer)
-
-    // console.log(userBalanceTransfer)
-    // console.log(list[editIndex].Balance)
     if (list.length === 0) {
       console.log('no users yet')
       return false // no users yet
@@ -188,9 +165,18 @@ export default function UserDisplay() {
 
   return (
     <>
-       <Modal method='deposit' isOpen={depositModal} toggleModal={toggleDepositModal} handleClickNewDeposit={handleClickNewDeposit}/>
-       <Modal method='withdraw' isOpen={withdrawModal} toggleModal={toggleWithdrawModal} handleClickNewWithdraw={handleClickNewWithdraw}/>
-   
+      <Modal
+        method='deposit'
+        isOpen={depositModal}
+        toggleModal={toggleDepositModal}
+        handleClickNewDeposit={handleClickNewDeposit}
+      />
+      <Modal
+        method='withdraw'
+        isOpen={withdrawModal}
+        toggleModal={toggleWithdrawModal}
+        handleClickNewWithdraw={handleClickNewWithdraw}
+      />
 
       <div className='grid'>
         <div className='container notification mt-3'>
@@ -285,7 +271,7 @@ export default function UserDisplay() {
             )}
           </tbody>
         </table>
-       
+
         {isUpdateTransfer && (
           <div>
             <span>
@@ -331,7 +317,6 @@ export default function UserDisplay() {
           <button onClick={handleClickNewWithdraw}>Withdraw</button>
         </div>
       )}
-
     </>
   )
 }
