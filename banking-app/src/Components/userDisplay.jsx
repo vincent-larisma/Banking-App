@@ -112,7 +112,8 @@ export default function UserDisplay() {
     let list = userList
     list[editIndex].Balance = parseInt(list[editIndex].Balance) + value;
     setUser({ ...user, userList: list });
-    setIsUpdateDeposit(false);  
+    setIsUpdateDeposit(false);
+    console.log('edit index', editIndex)
   }
 
   const handleClickNewWithdraw = () => {
@@ -133,17 +134,19 @@ export default function UserDisplay() {
     }
   }
 
-  const toggleDepositModal = () => {
+  const toggleDepositModal = (index) => {
+    setNewUserBalance({...newUserBalance, editIndex: index })
     setDepositModal(!depositModal);
   }
-    const toggleWithdrawModal = () => {
-      setWithdrawModal(!withdrawModal);
+  const toggleWithdrawModal = (index) => {
+    setNewUserBalance({...newUserBalance, editIndex: index })
+    setWithdrawModal(!withdrawModal);
   };
 
   return (
     <>
     
-    <Modal method='deposit' index={editIndex} isOpen={depositModal} toggleModal={toggleDepositModal} handleClickNewDeposit={handleClickNewDeposit}/>
+    <Modal method='deposit' isOpen={depositModal} toggleModal={toggleDepositModal} handleClickNewDeposit={handleClickNewDeposit}/>
     <Modal method='withdraw' isOpen={withdrawModal} toggleModal={toggleWithdrawModal} handleClickNewWithdraw={handleClickNewWithdraw}/>
    
       <div>
@@ -206,8 +209,8 @@ export default function UserDisplay() {
                   <td>{Email}</td>
                   <td>${Balance}</td>
                   <td>
-                    <button onClick={() => toggleWithdrawModal()}>Withdraw</button>
-                    <button onClick={() => toggleDepositModal()}>Deposit</button>
+                    <button onClick={() => toggleWithdrawModal(index)}>Withdraw</button>
+                    <button onClick={() => toggleDepositModal(index)}>Deposit</button>
                     <button>TRANSFER</button>
                     <button onClick={() => handleClickDelete(index)}>DELETE USER</button>
                     {/* <button onClick={() => handleClickTransactions(index)}>Transactions</button> */}
