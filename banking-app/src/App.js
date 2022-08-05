@@ -4,6 +4,7 @@ import React from 'react'
 import UserDisplay from './Components/UserDisplay'
 import Navbar from './Components/Navbar'
 import Clock from './Components/Clock'
+import Footer from './Components/Footer'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Navbar />
 
       <UserDisplay />
+      <Footer />
     </>
   )
 }

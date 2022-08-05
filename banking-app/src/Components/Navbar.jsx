@@ -5,7 +5,14 @@ export default function Navbar() {
     <>
       <nav className='navbar is-dark' role='navigation' aria-label='main navigation'>
         <div className='navbar-brand'>
-          <div className='navbar-item'>Bank of the Philippines</div>
+          <div className='navbar-item pl-6 is-size-4'>
+            <span class='icon-text'>
+              <span class='icon'>
+                <i class='fa-solid fa-earth-europe'></i>
+              </span>
+              <span>BANK</span>
+            </span>
+          </div>
 
           <a role='button' className='navbar-burger' aria-label='menu' aria-expanded='false'>
             <span aria-hidden='true'></span>

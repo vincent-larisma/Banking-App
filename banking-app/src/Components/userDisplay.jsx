@@ -185,7 +185,7 @@ export default function UserDisplay() {
   return (
     <>
       <div className='grid'>
-        <div className='container notification'>
+        <div className='container notification mt-3'>
           <div className='subtitle'>
             <span className='icon-text'>
               <span className='icon'>
@@ -202,6 +202,8 @@ export default function UserDisplay() {
             <div className='field pl-4'>
               <label className='label'>Name:</label>
               <input type='text' name='userName' value={userName} required onChange={handleChangeName} />
+
+              <div>user has already been added</div>
             </div>
             <div className='field pl-4'>
               <label className='label'>Email:</label>
@@ -219,7 +221,7 @@ export default function UserDisplay() {
           </form>
         </div>
 
-        <table className='table table is-bordered is-striped is-narrow is-hoverable is-fullwidth grid-table '>
+        <table className='table table is-bordered is-striped is-narrow is-hoverable is-fullwidth grid-table mb-6'>
           <caption>
             {' '}
             <h1 className='title m-4'>Bank Users</h1>
