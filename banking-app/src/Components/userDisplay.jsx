@@ -125,6 +125,7 @@ export default function UserDisplay() {
     let list = userList
     if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw) ) {
       return false;
+
     } else {  
       if ( parseInt(userBalanceWithdraw) % 100 === 0 ){
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - parseInt(userBalanceWithdraw)
@@ -143,6 +144,7 @@ export default function UserDisplay() {
     const toggleWithdrawModal = () => {
       setWithdrawModal(!withdrawModal);
   };
+
   return (
     <>
     <Modal method='deposit' isOpen={depositModal} toggleModal={toggleDepositModal}/>
@@ -207,8 +209,8 @@ export default function UserDisplay() {
                   <td>{Email}</td>
                   <td>${Balance}</td>
                   <td>
-                    <button onClick={() => handleClickWithdraw(index)}>Withdraw</button>
-                    <button onClick={() => handleClickDeposit(index)}>Deposit</button>
+                    <button onClick={() => toggleWithdrawModal()}>Withdraw</button>
+                    <button onClick={() => toggleDepositModal()}>Deposit</button>
                     <button>TRANSFER</button>
                     <button onClick={() => handleClickDelete(index)}>DELETE USER</button>
                     {/* <button onClick={() => handleClickTransactions(index)}>Transactions</button> */}

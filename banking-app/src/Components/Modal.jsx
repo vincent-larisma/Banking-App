@@ -12,6 +12,7 @@ export default function Modal(props) {
           <div onClick={props.toggleModal} className="overlay"></div>
           <div className="modal-content">
             {props.method === 'deposit' &&<input type="Amount:" id="amount-label"  placeholder="Enter Amount" />}
+            {props.method === 'withdraw' &&<input type="Amount:" id="amount-label"  placeholder="Enter Amount" />}
             <button>Submit</button>
             <button className="close-modal" onClick={props.toggleModal}>
               x
