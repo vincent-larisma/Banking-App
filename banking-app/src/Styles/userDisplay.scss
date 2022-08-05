@@ -14,6 +14,9 @@
   .grid-table {
     grid-column: info-start / info-end;
   }
+  .grid-login {
+    grid-column: center-start / center-end;
+  }
 }
 
 .text-center {
@@ -26,8 +29,10 @@
   align-content: center;
 }
 .table-size {
-  height: 100vh;
+  min-height: 100vh;
 }
+
+
 .form-size {
   height: 350px;
 }
