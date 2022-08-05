@@ -5,9 +5,25 @@
 }
 
 .grid {
-    display: grid;
+  display: grid;
+  grid-template-columns: [page-start] 1fr [info-start] 5rem [center-start] minmax(0, 624px) [center-end] 5rem [info-end] 1fr [page-end];
 
+  .grid-create-user {
+    grid-column: page-start / info-start;
+  }
+  .grid-table {
+    grid-column: info-start / info-end;
+  }
 }
-.grid * {
-    
+
+.text-center {
+  text-align: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.form-size {
 }
