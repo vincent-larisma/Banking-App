@@ -13,17 +13,30 @@ export default function LoginPage() {
 
   const { name, password, userType } = dataBase
 
-  const dataBaseList = [{ name: 'admin', password: 'admin', userType: 'admin' }]
+  const dataBaseList = [
+    { name: 'admin', password: 'admin', userType: 'admin' },
+    { name: 'hello', password: 'hello', userType: 'admin' },
+  ]
 
   const handleChangeName = (e) => {
     const { value, name } = e.target
-    console.log(dataBase)
     setDataBase({ ...dataBase, [name]: value })
   }
   const handleChangePass = (e) => {
     const { value, name } = e.target
-    console.log(dataBase)
     setDataBase({ ...dataBase, [name]: value })
+  }
+
+  const nameCheck = (object) => {
+    return object.name === name
+  }
+
+  const handleClickSubmit = () => {
+    if (password !== '' && name !== '') {
+      if (dataBase.some(nameCheck)) {
+        console.log('Finally in')
+      }
+    }
   }
 
   return (
@@ -62,7 +75,9 @@ export default function LoginPage() {
               </span>
             </p>
           </div>
-          <button class='button is-success m-2'>Submit</button>
+          <button className='button is-success m-2' onClick={handleClickSubmit}>
+            Submit
+          </button>
         </div>
       </div>
       <Footer />
