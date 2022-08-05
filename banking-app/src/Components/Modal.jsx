@@ -7,20 +7,20 @@ export default function Modal(props) {
   depositValue: ''
  })
 
- const {depositValue} = deposit
+ const { depositValue } = deposit;
 
  const handleChangeDeposit = (event) => {
   const { value, name } = event.target
     setDeposit({ ...deposit, [name]: value })
-    console.log(deposit)
  }
- console.log(props.index)
- 
- const handleSubmit=(index) =>{
-  if (props.method ==='deposit'){props.handleClickNewDeposit(index)
-    
+
+ const handleSubmit = () =>{
+  if (props.method ==='deposit'){
+    props.handleClickNewDeposit(parseInt(depositValue))
   }
-  if (props.method==='withdraw'){props.handleClickNewWithdraw(index)}
+  if (props.method==='withdraw'){
+    props.handleClickNewWithdraw(props.index)
+  }
  } 
 
  
@@ -33,7 +33,7 @@ export default function Modal(props) {
           <div className="modal-content">
             {props.method === 'deposit' &&<input type="Amount:" id="amount-label" name="depositValue" value={depositValue} placeholder="Enter Amount" onChange={handleChangeDeposit} />}
             {props.method === 'withdraw' &&<input type="Amount:" id="amount-label"  placeholder="Enter Amount" />}
-            <button  onClick={() => handleSubmit(props.index)}>Submit</button>
+            <button  onClick={handleSubmit}>Submit</button>
             <button className="close-modal" onClick={props.toggleModal}>
               x
             </button>

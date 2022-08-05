@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import Modal from './Modal'
 
-
-
-
 export default function UserDisplay() {
   const [user, setUser] = useState({
     userEmail: '',
@@ -15,7 +12,7 @@ export default function UserDisplay() {
   const [newUserBalance, setNewUserBalance] = useState({
     userBalanceDeposit: 0,
     userBalanceWithdraw: 0,
-    editIndex: '',
+    editIndex: 0,
   })
 
   // const [newTransactions, setNewTransactions] = useState({
@@ -111,17 +108,19 @@ export default function UserDisplay() {
     
   }
 
-  const handleClickNewDeposit = () => {
+  const handleClickNewDeposit = (value) => {
     let list = userList
-    list[editIndex].Balance = parseInt(list[editIndex].Balance) + parseInt(userBalanceDeposit)
+    list[editIndex].Balance = parseInt(list[editIndex].Balance) + value;
     setUser({ ...user, userList: list })
     setIsUpdateDeposit(false)
-    console.log('depositClick')
+    console.log('userbalancedeposit', userBalanceDeposit, 'list index', list[0].Balance);
+    console.log('deposit clicked')
     // logHistory(index)
     
   }
 
   const handleClickNewWithdraw = () => {
+    console.log('withdraw clicked')
     let list = userList
     if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw) ) {
       return false;
