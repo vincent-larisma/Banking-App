@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 //Component
 import Navbar from './Navbar'
 import Footer from './Footer'
 
 export default function LoginPage() {
+  const navigate = useNavigate()
   const [dataBase, setDataBase] = useState({
     name: '',
     password: '',
@@ -38,7 +40,7 @@ export default function LoginPage() {
   const handleClickSubmit = () => {
     if (password !== '' && name !== '') {
       if (dataBaseList.some(nameCheck) && dataBaseList.some(passCheck)) {
-        console.log('Finally in')
+        navigate('/Dashboard')
       } else {
         alert('Please enter the correct username and password!')
       }

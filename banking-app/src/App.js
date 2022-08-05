@@ -1,22 +1,18 @@
 import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 
 //Component
-import UserDisplay from './Components/UserDisplay'
-
-import Modal from './Components/Modal'
-import Navbar from './Components/Navbar'
-import Clock from './Components/Clock'
-import Footer from './Components/Footer'
 import LoginPage from './Components/LoginPage'
+import Dashboard from './Components/Dashboard'
 
 function App() {
   return (
     <>
-      {/* <Navbar />
-      <UserDisplay />
-      <Footer /> */}
-
-      <LoginPage />
+      <Routes>
+        <Route path='/Dashboard' element={<Dashboard />}></Route>
+        <Route path='/Login' element={<LoginPage />}></Route>
+        <Route path='/' element={<LoginPage />}></Route>
+      </Routes>
     </>
   )
 }
