@@ -185,6 +185,16 @@ export default function UserDisplay() {
   return (
     <>
       <div className='grid'>
+        <div className='container'>
+          <div>
+            <span class='icon-text'>
+              <span class='icon'>
+                <i class='fa-solid fa-user'></i>
+              </span>
+              <span>Home</span>
+            </span>
+          </div>
+        </div>
         <div className='box container grid-create-user form-size'>
           <h2 className='subtitle text-center'>Create User</h2>
           <form onSubmit={handleSubmitUser}>
