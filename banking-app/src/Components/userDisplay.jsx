@@ -11,6 +11,8 @@ export default function UserDisplay() {
   const [newUserBalance, setNewUserBalance] = useState({
     userBalanceDeposit: 0,
     userBalanceWithdraw: 0,
+    userBalanceTransfer: 0,
+    userToTransfer: 0,
     editIndex: '',
   })
 
@@ -19,11 +21,12 @@ export default function UserDisplay() {
   //   logIndex: ''
   // })
 
-  const { editIndex, userBalanceDeposit, userBalanceWithdraw } = newUserBalance
+  const { editIndex, userBalanceDeposit, userBalanceWithdraw, userBalanceTransfer, userToTransfer } = newUserBalance
   // const { logIndex, transactionLogs} = newTransactions
   // const { isUpdateLogs, setIsUpdateLogs } = useState(false)
   const [isUpdateDeposit, setIsUpdateDeposit] = useState(false)
   const [isUpdateWithdraw, setIsUpdateWithdraw] = useState(false)
+  const [isUpdateTransfer, setIsUpdateTransfer] = useState(false)
 
   //update to true
   const handleClickDeposit = (index) => {
@@ -47,6 +50,22 @@ export default function UserDisplay() {
   const handleChangeWithdrawUpdate = (e) => {
     const { value, name } = e.target
     setNewUserBalance({ ...newUserBalance, [name]: value })
+  }
+
+  const handleAmountToTransfer = (e) => {
+    const { value, name } = e.target
+    setNewUserBalance({ ...newUserBalance, [name]: value })
+  }
+
+  const handleUserToTransfer = (e) => {
+    const { value, name } = e.target
+    setNewUserBalance({ ...newUserBalance, [name]: value })
+  }
+
+  const handleClickTransfer = (index) => {
+    setIsUpdateTransfer(true)
+    setNewUserBalance({ ...newUserBalance, editIndex: index })
+    console.log(newUserBalance)
   }
 
   // const handleClickTransactions = (index) => {
@@ -127,6 +146,43 @@ export default function UserDisplay() {
     }
   }
 
+  const handleClickNewTransfer = () => {
+    let list = userList;
+    //let copyIndex
+    let i
+
+    // console.log(list);
+    // console.log(userToTransfer)
+    
+    // console.log(userBalanceTransfer)
+    // console.log(list[editIndex].Balance)
+    if (list.length === 0) {
+      console.log("no users yet")
+      return false // no users yet
+    }
+    if (list.length === 1) {
+      console.log("only 1 user, no one to transfer to")
+      return false
+    }
+    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceTransfer))  {
+      console.log("Not Enough Balance")
+      return false
+    }
+
+    for ( i = 0; i < list.length; i++){
+      if ( parseInt(list[i].ID) ===  parseInt(userToTransfer) ){
+        list[editIndex].Balance = parseInt(list[editIndex].Balance) - parseInt(userBalanceTransfer)
+        list[i].Balance = parseInt(list[i].Balance) + parseInt(userBalanceTransfer);
+        console.log( list[editIndex].Balance)
+        console.log(list[i].Balance)
+      }
+    }
+
+
+    i = 0;
+    setIsUpdateTransfer(false)
+}
+
   return (
     <>
       <div>
@@ -194,7 +250,7 @@ export default function UserDisplay() {
                     <button className='button is-primary' onClick={() => handleClickDeposit(index)}>
                       Deposit
                     </button>
-                    <button className='button is-primary'>TRANSFER</button>
+                    <button className='button is-primary' onClick={() => handleClickTransfer(index)}>TRANSFER</button>
                     <button className='button is-danger' onClick={() => handleClickDelete(index)}>
                       DELETE USER
                     </button>
@@ -234,6 +290,26 @@ export default function UserDisplay() {
             onChange={handleChangeWithdrawUpdate}
           />
           <button onClick={handleClickNewWithdraw}>Withdraw</button>
+        </div>
+      )}
+      {isUpdateTransfer && (
+        <div>
+          <span>
+            {userList[editIndex].Name} {userList[editIndex].ID}
+          </span>
+          <input
+            type='number'
+            name='userToTransfer'
+            value={userToTransfer}
+            onChange={handleUserToTransfer}
+          />
+          <input
+            type='number'
+            name='userBalanceTransfer'
+            value={userBalanceTransfer}
+            onChange={handleAmountToTransfer}
+          />
+          <button onClick={handleClickNewTransfer}>Transfer</button>
         </div>
       )}
     </>
