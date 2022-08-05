@@ -31,10 +31,16 @@ export default function LoginPage() {
     return object.name === name
   }
 
+  const passCheck = (object) => {
+    return object.password === password
+  }
+
   const handleClickSubmit = () => {
     if (password !== '' && name !== '') {
-      if (dataBase.some(nameCheck)) {
+      if (dataBaseList.some(nameCheck) && dataBaseList.some(passCheck)) {
         console.log('Finally in')
+      } else {
+        alert('Please enter the correct username and password!')
       }
     }
   }
