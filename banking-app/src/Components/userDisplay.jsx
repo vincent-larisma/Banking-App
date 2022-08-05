@@ -185,15 +185,16 @@ export default function UserDisplay() {
   return (
     <>
       <div className='grid'>
-        <div className='container'>
-          <div>
-            <span class='icon-text'>
-              <span class='icon'>
-                <i class='fa-solid fa-user'></i>
+        <div className='container notification'>
+          <div className='subtitle'>
+            <span className='icon-text'>
+              <span className='icon'>
+                <i className='fa-solid fa-user'></i>
               </span>
-              <span>Home</span>
+              <span>Total Users</span>
             </span>
           </div>
+          <div className='title flex-center'>{userList.length}</div>
         </div>
         <div className='box container grid-create-user form-size'>
           <h2 className='subtitle text-center'>Create User</h2>
