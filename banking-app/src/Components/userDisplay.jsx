@@ -147,171 +147,167 @@ export default function UserDisplay() {
   }
 
   const handleClickNewTransfer = () => {
-    let list = userList;
+    let list = userList
     //let copyIndex
     let i
 
     // console.log(list);
     // console.log(userToTransfer)
-    
+
     // console.log(userBalanceTransfer)
     // console.log(list[editIndex].Balance)
     if (list.length === 0) {
-      console.log("no users yet")
+      console.log('no users yet')
       return false // no users yet
     }
     if (list.length === 1) {
-      console.log("only 1 user, no one to transfer to")
+      console.log('only 1 user, no one to transfer to')
       return false
     }
-    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceTransfer))  {
-      console.log("Not Enough Balance")
+    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceTransfer)) {
+      console.log('Not Enough Balance')
       return false
     }
 
-    for ( i = 0; i < list.length; i++){
-      if ( parseInt(list[i].ID) ===  parseInt(userToTransfer) ){
+    for (i = 0; i < list.length; i++) {
+      if (parseInt(list[i].ID) === parseInt(userToTransfer)) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - parseInt(userBalanceTransfer)
-        list[i].Balance = parseInt(list[i].Balance) + parseInt(userBalanceTransfer);
-        console.log( list[editIndex].Balance)
+        list[i].Balance = parseInt(list[i].Balance) + parseInt(userBalanceTransfer)
+        console.log(list[editIndex].Balance)
         console.log(list[i].Balance)
       }
     }
 
-
-    i = 0;
+    i = 0
     setIsUpdateTransfer(false)
-}
+  }
 
   return (
     <>
-      <div>
-        <h2 className='subtitle'>Create User</h2>
-        <form onSubmit={handleSubmitUser}>
-          <div className='field'>
-            <label className='label'>Name:</label>
-            <input type='text' name='userName' value={userName} required onChange={handleChangeName} />
-          </div>
-          <div className='field'>
-            <label className='label'>Email:</label>
-            <input type='email' name='userEmail' value={userEmail} required onChange={handleChangeEmail} />
-          </div>
+      <div className='grid'>
+        <div className='box container grid-create-user form-size'>
+          <h2 className='subtitle text-center'>Create User</h2>
+          <form onSubmit={handleSubmitUser}>
+            <div className='field pl-4'>
+              <label className='label'>Name:</label>
+              <input type='text' name='userName' value={userName} required onChange={handleChangeName} />
+            </div>
+            <div className='field pl-4'>
+              <label className='label'>Email:</label>
+              <input type='email' name='userEmail' value={userEmail} required onChange={handleChangeEmail} />
+            </div>
 
-          <div className='field'>
-            <label className='label'>Balance:</label>
-            <input type='number' name='userBalance' value={userBalance} onChange={handleChangeBalance} />
-            <span>(Optional)</span>
+            <div className='field pl-4 balance-input'>
+              <label className='label'>Balance:</label>
+              <input type='number' name='userBalance' value={userBalance} onChange={handleChangeBalance} />
+              <span>(Optional)</span>
+            </div>
+            <button className='ml-4 button is-success is-small' type='submit' onClick={handleClickCreateUser}>
+              Create User
+            </button>
+          </form>
+        </div>
+
+        <table className='table table is-bordered is-striped is-narrow is-hoverable is-fullwidth grid-table '>
+          <caption>
+            {' '}
+            <h1 className='title m-4'>Bank Users</h1>
+          </caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Balance</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* Displays the userList  */}
+            {userList.length ? (
+              userList.map(({ Name, Email, Balance, ID }, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{Name}</td>
+                    <td>{ID}</td>
+                    <td>{Email}</td>
+                    <td>${Balance}</td>
+                    <td>
+                      <button className='button is-primary m-1' onClick={() => handleClickWithdraw(index)}>
+                        Withdraw
+                      </button>
+                      <button className='button is-primary m-1' onClick={() => handleClickDeposit(index)}>
+                        Deposit
+                      </button>
+                      <button className='button is-primary m-1' onClick={() => handleClickTransfer(index)}>
+                        TRANSFER
+                      </button>
+                      <button className='button is-danger m-1' onClick={() => handleClickDelete(index)}>
+                        DELETE USER
+                      </button>
+                      {/* <button onClick={() => handleClickTransactions(index)}>Transactions</button> */}
+                    </td>
+                  </tr>
+                )
+              })
+            ) : (
+              <th
+                colSpan='5'
+                className='table-size subtitle'
+                style={{
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  paddingTop: '50%',
+                }}>
+                No Users Yet
+              </th>
+            )}
+          </tbody>
+        </table>
+        {isUpdateDeposit && (
+          <div>
+            <span>
+              {userList[editIndex].Name} {userList[editIndex].ID}
+            </span>
+            <input
+              type='number'
+              name='userBalanceDeposit'
+              value={userBalanceDeposit}
+              onChange={handleChangeDepositUpdate}
+            />
+            <button onClick={handleClickNewDeposit}>Deposit</button>
           </div>
-          <button className='button is-success is-small' type='submit' onClick={handleClickCreateUser}>
-            Create User
-          </button>
-        </form>
+        )}
+        {isUpdateWithdraw && (
+          <div>
+            <span>
+              {userList[editIndex].Name} {userList[editIndex].ID}
+            </span>
+            <input
+              type='number'
+              name='userBalanceWithdraw'
+              value={userBalanceWithdraw}
+              onChange={handleChangeWithdrawUpdate}
+            />
+            <button onClick={handleClickNewWithdraw}>Withdraw</button>
+          </div>
+        )}
+        {isUpdateTransfer && (
+          <div>
+            <span>
+              {userList[editIndex].Name} {userList[editIndex].ID}
+            </span>
+            <input type='number' name='userToTransfer' value={userToTransfer} onChange={handleUserToTransfer} />
+            <input
+              type='number'
+              name='userBalanceTransfer'
+              value={userBalanceTransfer}
+              onChange={handleAmountToTransfer}
+            />
+            <button onClick={handleClickNewTransfer}>Transfer</button>
+          </div>
+        )}
       </div>
-
-      <table className='table is-striped is-narrow is-hoverable is-fullwidth'>
-        <caption>
-          {' '}
-          <h1 className='title'>Bank Users</h1>
-        </caption>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Balance</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>John Doe</td>
-            <td>0909090909</td>
-            <td>testEmail@gmail.com</td>
-            <td>$0</td>
-            <td>
-              <button className='button is-primary'>WITHDRAW</button>
-              <button className='button is-primary'>TRANSFER</button>
-              <button className='button is-danger'>DELETE USER</button>
-            </td>
-          </tr>
-          {/* Displays the userList  */}
-          {userList.length ? (
-            userList.map(({ Name, Email, Balance, ID }, index) => {
-              return (
-                <tr key={index}>
-                  <td>{Name}</td>
-                  <td>{ID}</td>
-                  <td>{Email}</td>
-                  <td>${Balance}</td>
-                  <td>
-                    <button className='button is-primary' onClick={() => handleClickWithdraw(index)}>
-                      Withdraw
-                    </button>
-                    <button className='button is-primary' onClick={() => handleClickDeposit(index)}>
-                      Deposit
-                    </button>
-                    <button className='button is-primary' onClick={() => handleClickTransfer(index)}>TRANSFER</button>
-                    <button className='button is-danger' onClick={() => handleClickDelete(index)}>
-                      DELETE USER
-                    </button>
-                    {/* <button onClick={() => handleClickTransactions(index)}>Transactions</button> */}
-                  </td>
-                </tr>
-              )
-            })
-          ) : (
-            <th colSpan='5'>No Users Yet</th>
-          )}
-        </tbody>
-      </table>
-      {isUpdateDeposit && (
-        <div>
-          <span>
-            {userList[editIndex].Name} {userList[editIndex].ID}
-          </span>
-          <input
-            type='number'
-            name='userBalanceDeposit'
-            value={userBalanceDeposit}
-            onChange={handleChangeDepositUpdate}
-          />
-          <button onClick={handleClickNewDeposit}>Deposit</button>
-        </div>
-      )}
-      {isUpdateWithdraw && (
-        <div>
-          <span>
-            {userList[editIndex].Name} {userList[editIndex].ID}
-          </span>
-          <input
-            type='number'
-            name='userBalanceWithdraw'
-            value={userBalanceWithdraw}
-            onChange={handleChangeWithdrawUpdate}
-          />
-          <button onClick={handleClickNewWithdraw}>Withdraw</button>
-        </div>
-      )}
-      {isUpdateTransfer && (
-        <div>
-          <span>
-            {userList[editIndex].Name} {userList[editIndex].ID}
-          </span>
-          <input
-            type='number'
-            name='userToTransfer'
-            value={userToTransfer}
-            onChange={handleUserToTransfer}
-          />
-          <input
-            type='number'
-            name='userBalanceTransfer'
-            value={userBalanceTransfer}
-            onChange={handleAmountToTransfer}
-          />
-          <button onClick={handleClickNewTransfer}>Transfer</button>
-        </div>
-      )}
     </>
   )
 }
