@@ -3,9 +3,9 @@ import React from 'react'
 export default function Navbar() {
   return (
     <>
-      <nav className='navbar' role='navigation' aria-label='main navigation'>
+      <nav className='navbar is-dark' role='navigation' aria-label='main navigation'>
         <div className='navbar-brand'>
-          <h1 className='title'>BANK OF THE PHILIPPINES</h1>
+          <div className='navbar-item'>Bank of the Philippines</div>
 
           <a role='button' className='navbar-burger' aria-label='menu' aria-expanded='false'>
             <span aria-hidden='true'></span>
@@ -13,7 +13,6 @@ export default function Navbar() {
             <span aria-hidden='true'></span>
           </a>
         </div>
-        
       </nav>
     </>
   )

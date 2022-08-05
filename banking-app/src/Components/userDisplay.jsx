@@ -185,24 +185,24 @@ export default function UserDisplay() {
   return (
     <>
       <div className='grid'>
-        <div className='box container grid-create-user'>
+        <div className='box container grid-create-user form-size'>
           <h2 className='subtitle text-center'>Create User</h2>
           <form onSubmit={handleSubmitUser}>
-            <div className='field'>
+            <div className='field pl-4'>
               <label className='label'>Name:</label>
               <input type='text' name='userName' value={userName} required onChange={handleChangeName} />
             </div>
-            <div className='field'>
+            <div className='field pl-4'>
               <label className='label'>Email:</label>
               <input type='email' name='userEmail' value={userEmail} required onChange={handleChangeEmail} />
             </div>
 
-            <div className='field balance-input'>
+            <div className='field pl-4 balance-input'>
               <label className='label'>Balance:</label>
               <input type='number' name='userBalance' value={userBalance} onChange={handleChangeBalance} />
               <span>(Optional)</span>
             </div>
-            <button className='button is-success is-small' type='submit' onClick={handleClickCreateUser}>
+            <button className='ml-4 button is-success is-small' type='submit' onClick={handleClickCreateUser}>
               Create User
             </button>
           </form>
@@ -211,7 +211,7 @@ export default function UserDisplay() {
         <table className='table table is-bordered is-striped is-narrow is-hoverable is-fullwidth grid-table '>
           <caption>
             {' '}
-            <h1 className='title'>Bank Users</h1>
+            <h1 className='title m-4'>Bank Users</h1>
           </caption>
           <thead>
             <tr>
@@ -223,17 +223,6 @@ export default function UserDisplay() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>John Doe</td>
-              <td>0909090909</td>
-              <td>testEmail@gmail.com</td>
-              <td>$0</td>
-              <td>
-                <button className='button is-primary m-1'>WITHDRAW</button>
-                <button className='button is-primary m-1'>TRANSFER</button>
-                <button className='button is-danger m-1'>DELETE USER</button>
-              </td>
-            </tr>
             {/* Displays the userList  */}
             {userList.length ? (
               userList.map(({ Name, Email, Balance, ID }, index) => {
@@ -262,7 +251,16 @@ export default function UserDisplay() {
                 )
               })
             ) : (
-              <th colSpan='5'>No Users Yet</th>
+              <th
+                colSpan='5'
+                className='table-size subtitle'
+                style={{
+                  textAlign: 'center',
+                  fontWeight: 'bold',
+                  paddingTop: '50%',
+                }}>
+                No Users Yet
+              </th>
             )}
           </tbody>
         </table>
