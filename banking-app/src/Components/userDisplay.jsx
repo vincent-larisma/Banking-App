@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Modal from './Modal'
 
 export default function UserDisplay() {
   const [user, setUser] = useState({
@@ -14,12 +15,9 @@ export default function UserDisplay() {
     userBalanceTransfer: 0,
     userToTransfer: 0,
     editIndex: '',
+
   })
 
-  // const [newTransactions, setNewTransactions] = useState({
-  //   transactionLogs: '',
-  //   logIndex: ''
-  // })
 
   const { editIndex, userBalanceDeposit, userBalanceWithdraw, userBalanceTransfer, userToTransfer } = newUserBalance
   // const { logIndex, transactionLogs} = newTransactions
@@ -80,6 +78,9 @@ export default function UserDisplay() {
 
   const { userList, userEmail, userBalance, userName } = user
 
+  const [depositModal, setDepositModal] = useState(false);
+  const [withdrawModal, setWithdrawModal] = useState(false);
+
   //HandleChange function for the user input
   const handleChangeName = (e) => {
     const { value, name } = e.target
@@ -122,20 +123,24 @@ export default function UserDisplay() {
     setIsUpdateDeposit(false)
   }
 
-  const handleClickNewDeposit = () => {
+  const handleClickNewDeposit = (value) => {
     let list = userList
-    list[editIndex].Balance = parseInt(list[editIndex].Balance) + parseInt(userBalanceDeposit)
-    setUser({ ...user, userList: list })
-    setIsUpdateDeposit(false)
-    // logHistory(index)
+    list[editIndex].Balance = parseInt(list[editIndex].Balance) + value;
+    setUser({ ...user, userList: list });
+    setIsUpdateDeposit(false);
+    console.log('edit index', editIndex)
   }
 
   const handleClickNewWithdraw = () => {
+    console.log('withdraw clicked')
     let list = userList
-    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw)) {
-      return false
-    } else {
-      if (parseInt(userBalanceWithdraw) % 100 === 0) {
+
+    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw) ) {
+      return false;
+
+    } else {  
+      if ( parseInt(userBalanceWithdraw) % 100 === 0 ){
+
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - parseInt(userBalanceWithdraw)
         setUser({ ...user, userList: list })
         setIsUpdateWithdraw(false)
@@ -145,7 +150,6 @@ export default function UserDisplay() {
       }
     }
   }
-
   const handleClickNewTransfer = () => {
     let list = userList
     //let copyIndex
@@ -184,6 +188,10 @@ export default function UserDisplay() {
 
   return (
     <>
+       <Modal method='deposit' isOpen={depositModal} toggleModal={toggleDepositModal} handleClickNewDeposit={handleClickNewDeposit}/>
+       <Modal method='withdraw' isOpen={withdrawModal} toggleModal={toggleWithdrawModal} handleClickNewWithdraw={handleClickNewWithdraw}/>
+   
+
       <div className='grid'>
         <div className='container notification mt-3'>
           <div className='subtitle'>
@@ -277,34 +285,7 @@ export default function UserDisplay() {
             )}
           </tbody>
         </table>
-        {isUpdateDeposit && (
-          <div>
-            <span>
-              {userList[editIndex].Name} {userList[editIndex].ID}
-            </span>
-            <input
-              type='number'
-              name='userBalanceDeposit'
-              value={userBalanceDeposit}
-              onChange={handleChangeDepositUpdate}
-            />
-            <button onClick={handleClickNewDeposit}>Deposit</button>
-          </div>
-        )}
-        {isUpdateWithdraw && (
-          <div>
-            <span>
-              {userList[editIndex].Name} {userList[editIndex].ID}
-            </span>
-            <input
-              type='number'
-              name='userBalanceWithdraw'
-              value={userBalanceWithdraw}
-              onChange={handleChangeWithdrawUpdate}
-            />
-            <button onClick={handleClickNewWithdraw}>Withdraw</button>
-          </div>
-        )}
+       
         {isUpdateTransfer && (
           <div>
             <span>
@@ -321,6 +302,36 @@ export default function UserDisplay() {
           </div>
         )}
       </div>
+
+      {isUpdateDeposit && (
+        <div>
+          <span>
+            {userList[editIndex].Name} {userList[editIndex].ID}
+          </span>
+          <input
+            type='number'
+            name='userBalanceDeposit'
+            value={userBalanceDeposit}
+            onChange={handleChangeDepositUpdate}
+          />
+          <button onClick={handleClickNewDeposit}>Deposit</button>
+        </div>
+      )}
+      {isUpdateWithdraw && (
+        <div>
+          <span>
+            {userList[editIndex].Name} {userList[editIndex].ID}
+          </span>
+          <input
+            type='number'
+            name='userBalanceWithdraw'
+            value={userBalanceWithdraw}
+            onChange={handleChangeWithdrawUpdate}
+          />
+          <button onClick={handleClickNewWithdraw}>Withdraw</button>
+        </div>
+      )}
+
     </>
   )
 }
