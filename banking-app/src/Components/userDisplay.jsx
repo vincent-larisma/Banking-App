@@ -111,12 +111,8 @@ export default function UserDisplay() {
   const handleClickNewDeposit = (value) => {
     let list = userList
     list[editIndex].Balance = parseInt(list[editIndex].Balance) + value;
-    setUser({ ...user, userList: list })
-    setIsUpdateDeposit(false)
-    console.log('userbalancedeposit', userBalanceDeposit, 'list index', list[0].Balance);
-    console.log('deposit clicked')
-    // logHistory(index)
-    
+    setUser({ ...user, userList: list });
+    setIsUpdateDeposit(false);  
   }
 
   const handleClickNewWithdraw = () => {
