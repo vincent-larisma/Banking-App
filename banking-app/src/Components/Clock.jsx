@@ -7,8 +7,8 @@ export default function Clock() {
   useEffect(() => {
     setInterval(() => {
       setClock(time.toLocaleTimeString())
-    }, 1000)
-  }, [])
+    }, 1001)
+  }, [clock])
   return (
     <div className='container'>
       <div>{time.toLocaleDateString()}</div>
