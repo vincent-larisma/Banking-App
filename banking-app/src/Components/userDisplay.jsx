@@ -108,8 +108,6 @@ export default function UserDisplay() {
     let list = userList
     list.splice(index, 1)
     setUser({ ...user, userList: list })
-
-    //new Modal
     
   }
 
@@ -118,7 +116,9 @@ export default function UserDisplay() {
     list[editIndex].Balance = parseInt(list[editIndex].Balance) + parseInt(userBalanceDeposit)
     setUser({ ...user, userList: list })
     setIsUpdateDeposit(false)
+    console.log('depositClick')
     // logHistory(index)
+    
   }
 
   const handleClickNewWithdraw = () => {
@@ -147,8 +147,9 @@ export default function UserDisplay() {
 
   return (
     <>
-    <Modal method='deposit' isOpen={depositModal} toggleModal={toggleDepositModal}/>
-    <Modal method='withdraw' isOpen={withdrawModal} toggleModal={toggleWithdrawModal}/>
+    
+    <Modal method='deposit' index={editIndex} isOpen={depositModal} toggleModal={toggleDepositModal} handleClickNewDeposit={handleClickNewDeposit}/>
+    <Modal method='withdraw' isOpen={withdrawModal} toggleModal={toggleWithdrawModal} handleClickNewWithdraw={handleClickNewWithdraw}/>
    
       <div>
         <h2>Create User</h2>
@@ -203,6 +204,7 @@ export default function UserDisplay() {
           {userList.length ? (
             userList.map(({ Name, Email, Balance, ID }, index) => {
               return (
+                
                 <tr key={index}>
                   <td>{Name}</td>
                   <td>{ID}</td>

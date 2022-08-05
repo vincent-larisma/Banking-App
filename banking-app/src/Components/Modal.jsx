@@ -1,19 +1,39 @@
 import React from "react";
-import { useEffect } from "react";
+import { useState } from "react";
 
 
 export default function Modal(props) {
+ const  [deposit, setDeposit] = useState({
+  depositValue: ''
+ })
 
-  return (
+ const {depositValue} = deposit
+
+ const handleChangeDeposit = (event) => {
+  const { value, name } = event.target
+    setDeposit({ ...deposit, [name]: value })
+    console.log(deposit)
+ }
+ console.log(props.index)
+ 
+ const handleSubmit=(index) =>{
+  if (props.method ==='deposit'){props.handleClickNewDeposit(index)
+    
+  }
+  if (props.method==='withdraw'){props.handleClickNewWithdraw(index)}
+ } 
+
+ 
+ return (
     <>
 
       {props.isOpen && (
         <div id='modalcomponent' className="modal active-modal">
           <div onClick={props.toggleModal} className="overlay"></div>
           <div className="modal-content">
-            {props.method === 'deposit' &&<input type="Amount:" id="amount-label"  placeholder="Enter Amount" />}
+            {props.method === 'deposit' &&<input type="Amount:" id="amount-label" name="depositValue" value={depositValue} placeholder="Enter Amount" onChange={handleChangeDeposit} />}
             {props.method === 'withdraw' &&<input type="Amount:" id="amount-label"  placeholder="Enter Amount" />}
-            <button>Submit</button>
+            <button  onClick={() => handleSubmit(props.index)}>Submit</button>
             <button className="close-modal" onClick={props.toggleModal}>
               x
             </button>
