@@ -129,7 +129,7 @@ export default function UserDisplay() {
 
   return (
     <>
-      <div>
+      <div className='box container'>
         <h2 className='subtitle'>Create User</h2>
         <form onSubmit={handleSubmitUser}>
           <div className='field'>
@@ -141,7 +141,7 @@ export default function UserDisplay() {
             <input type='email' name='userEmail' value={userEmail} required onChange={handleChangeEmail} />
           </div>
 
-          <div className='field'>
+          <div className='field balance-input'>
             <label className='label'>Balance:</label>
             <input type='number' name='userBalance' value={userBalance} onChange={handleChangeBalance} />
             <span>(Optional)</span>
