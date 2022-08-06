@@ -87,13 +87,16 @@ export default function UserDisplay() {
     const listedUsers = { Name: '', Email: '', Balance: 0, ID: Date.now() }
     //Don't create users if email or name is empty
     if (userName !== '' && userEmail !== '') {
-      listedUsers.Name = userName
-      listedUsers.Email = userEmail
-      listedUsers.Balance = userBalance
-      list.push(listedUsers)
-      setUser({ ...user, userList: list })
-      setUser({ ...user, userName: '', userEmail: '', userBalance: 0 })
-      // logHistory(index);
+      if (!userEmail === userList.some(emailChecker)) {
+        listedUsers.Name = userName
+        listedUsers.Email = userEmail
+        listedUsers.Balance = userBalance
+        list.push(listedUsers)
+        setUser({ ...user, userList: list })
+        setUser({ ...user, userName: '', userEmail: '', userBalance: 0 })
+      } else if (userEmail === userList.some(emailChecker)) {
+        alert(`Email ${userEmail} is already in use`)
+      }
     }
   }
   //Prevent from reloading
@@ -171,6 +174,10 @@ export default function UserDisplay() {
   const toggleWithdrawModal = (index) => {
     setNewUserBalance({ ...newUserBalance, editIndex: index })
     setWithdrawModal(!withdrawModal)
+  }
+
+  const emailChecker = (object) => {
+    return object.Email === userEmail
   }
 
   return (
