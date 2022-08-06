@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Modal from './Modal'
+import Clock from './Clock'
 
 export default function UserDisplay() {
   const [user, setUser] = useState({
@@ -198,6 +199,19 @@ export default function UserDisplay() {
             </span>
           </div>
           <div className='title flex-center'>{userList.length}</div>
+        </div>
+        <div className='container notification mt-3 grid-clock '>
+          <div className='subtitle text-center'>
+            <span class='icon-text'>
+              <span class='icon'>
+                <i class='fa-solid fa-clock'></i>
+              </span>
+              <span>Clock</span>
+            </span>
+            <div className='mt-2'>
+              <Clock />
+            </div>
+          </div>
         </div>
         <div className='box container grid-create-user form-size'>
           <h2 className='subtitle text-center'>Create User</h2>

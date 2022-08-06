@@ -17,6 +17,9 @@
   .grid-login {
     grid-column: center-start / center-end;
   }
+  .grid-clock {
+    grid-column: info-end / page-end;
+  }
 }
 
 .text-center {
@@ -31,7 +34,6 @@
 .table-size {
   min-height: 100vh;
 }
-
 
 .form-size {
   height: 350px;

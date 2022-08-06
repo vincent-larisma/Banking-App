@@ -7,12 +7,12 @@ export default function Clock() {
   useEffect(() => {
     setInterval(() => {
       setClock(time.toLocaleTimeString())
-    }, 1001)
+    }, 1000)
   }, [clock])
   return (
-    <div className='container'>
-      <div>{time.toLocaleDateString()}</div>
-      <div>{clock}</div>
+    <div className='container text-center'>
+      <div className='is-size-6'>{time.toLocaleDateString()}</div>
+      <div className='is-size-6'>{clock}</div>
     </div>
   )
 }
