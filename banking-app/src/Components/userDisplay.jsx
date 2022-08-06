@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from './Modal'
 import Clock from './Clock'
 
@@ -93,6 +93,7 @@ export default function UserDisplay() {
         listedUsers.Email = userEmail
         listedUsers.Balance = userBalance
         list.push(listedUsers)
+
         setUser({ ...user, userList: list })
         setUser({ ...user, userName: '', userEmail: '', userBalance: 0 })
       } else if (userList.some(emailChecker)) {
@@ -187,6 +188,17 @@ export default function UserDisplay() {
     return object.Email === userEmail
   }
 
+  const userListLocal = [
+    { Name: 'Vincent Larisma', Email: 'vincentlarisma@gmail.com', Balance: 0, ID: 1659750502716 },
+    { Name: 'April Zarate', Email: 'aprilzarate@gmail.com', Balance: '10000', ID: 1659750523317 },
+    { Name: 'Gene Alvarez', Email: 'genealvarez@gmail.com', Balance: '100000', ID: 1659750544185 },
+    { Name: 'John Doe', Email: 'johndoe@gmail.com', Balance: '69000', ID: 1659750557301 },
+  ]
+
+  useEffect(() => {
+    localStorage.setItem('userListKey', JSON.stringify(userListLocal))
+  }, [])
+
   return (
     <>
       <Modal
@@ -224,12 +236,20 @@ export default function UserDisplay() {
           <div className='subtitle text-center'>
             <span class='icon-text'>
               <span class='icon'>
-                <i class='fa-solid fa-clock'></i>
+                <i class='fa-solid fa-download'></i>
               </span>
-              <span>Clock</span>
+              <span>LocalStorage</span>
             </span>
             <div className='mt-2'>
-              <Clock />
+              <button
+                className='button is-danger is-small'
+                onClick={() => {
+                  for (let i = 0; i < userListLocal.length; i++) {
+                    userList.push(JSON.parse(localStorage.getItem('userListKey'))[i])
+                  }
+                }}>
+                Local Storage
+              </button>
             </div>
           </div>
         </div>
@@ -258,7 +278,6 @@ export default function UserDisplay() {
 
         <table className='table table-size table is-bordered is-striped is-narrow is-hoverable is-fullwidth grid-table mb-6'>
           <caption>
-            {' '}
             <h1 className='title m-4'>Bank Users</h1>
           </caption>
           <thead>
@@ -330,7 +349,7 @@ export default function UserDisplay() {
         )}
       </div>
 
-      {isUpdateDeposit && (
+      {/* {depositModal && (
         <div>
           <span>
             {userList[editIndex].Name} {userList[editIndex].ID}
@@ -343,7 +362,7 @@ export default function UserDisplay() {
           />
           <button onClick={handleClickNewDeposit}>Deposit</button>
         </div>
-      )}
+      )} */}
       {isUpdateWithdraw && (
         <div>
           <span>

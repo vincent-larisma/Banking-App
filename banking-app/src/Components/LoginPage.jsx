@@ -40,6 +40,8 @@ export default function LoginPage() {
   const handleClickSubmit = () => {
     if (password !== '' && name !== '') {
       if (dataBaseList.some(nameCheck) && dataBaseList.some(passCheck)) {
+        
+
         navigate('/Dashboard')
       } else {
         alert('Please enter the correct username and password!')
