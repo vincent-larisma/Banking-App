@@ -19,6 +19,11 @@ const [transferId, setTransferId] = useState({
   transferNewId: ''
 })
 
+// const handleUserToTransfer = (e) => {
+//   const { value, name } = e.target
+//   setNewUserBalance({ ...newUserBalance, [name]: value })
+// }
+
 const { depositValue } = deposit;
 const { withdrawValue } = withdraw;
 const { transferValue } = transfer;
@@ -41,7 +46,8 @@ const handleChangeTransfer = (event) => {
 
 const handleTransferId = (event) => {
   const { value, name } = event.target
-  setTransferId({ ...transferId, [name]: value})
+  setTransferId({ ...transferNewId, [name]: value})
+  console.log(transferNewId)
 }
 
 const handleSubmit = () =>{
@@ -52,7 +58,7 @@ if (props.method==='withdraw'){
   props.handleClickNewWithdraw(parseInt(withdrawValue))
 }
 if (props.method==='transfer'){
-  props.handleClickNewTransfer(parseInt(transferValue, transferNewId))
+  props.handleClickNewTransfer(parseInt(transferValue), transferNewId)
 }
 } 
 

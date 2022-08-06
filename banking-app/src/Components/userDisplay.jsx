@@ -139,11 +139,12 @@ export default function UserDisplay() {
       }
     }
   }
-  const handleClickNewTransfer = (value) => {
+  const handleClickNewTransfer = (value, id) => {
     let list = userList
     let i
+    
+    console.log(value, id);
 
-    console.log(1)
     if (list.length === 0) {
       console.log('no users yet')
       return false // no users yet
@@ -158,7 +159,7 @@ export default function UserDisplay() {
     }
 
     for (i = 0; i < list.length; i++) {
-      if (parseInt(list[i].ID) === parseInt(userToTransfer)) {
+      if (parseInt(list[i].ID) === parseInt(id)) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - value
         list[i].Balance = parseInt(list[i].Balance) + value
         console.log(list[editIndex].Balance)
@@ -179,6 +180,7 @@ export default function UserDisplay() {
     setWithdrawModal(!withdrawModal)
   }
   const toggleTransferModal = (index) => {
+    console.log("Transfer Modal")
     setNewUserBalance({ ...newUserBalance, editIndex: index })
     setTransferModal(!transferModal)
   }
