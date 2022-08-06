@@ -68,6 +68,7 @@ export default function UserDisplay() {
 
   const [depositModal, setDepositModal] = useState(false)
   const [withdrawModal, setWithdrawModal] = useState(false)
+  const [transferModal, setTransferModal] = useState(false)
 
   const handleChangeName = (e) => {
     const { value, name } = e.target
@@ -121,15 +122,15 @@ export default function UserDisplay() {
     console.log('edit index', editIndex)
   }
 
-  const handleClickNewWithdraw = () => {
+  const handleClickNewWithdraw = (value) => {
     console.log('withdraw clicked')
     let list = userList
 
-    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceWithdraw)) {
+    if (parseInt(list[editIndex].Balance) < value ) {
       return false
     } else {
       if (parseInt(userBalanceWithdraw) % 100 === 0) {
-        list[editIndex].Balance = parseInt(list[editIndex].Balance) - parseInt(userBalanceWithdraw)
+        list[editIndex].Balance = parseInt(list[editIndex].Balance) - value
         setUser({ ...user, userList: list })
         setIsUpdateWithdraw(false)
       } else {
@@ -137,10 +138,11 @@ export default function UserDisplay() {
       }
     }
   }
-  const handleClickNewTransfer = () => {
+  const handleClickNewTransfer = (value) => {
     let list = userList
     let i
 
+    console.log(1)
     if (list.length === 0) {
       console.log('no users yet')
       return false // no users yet
@@ -149,15 +151,15 @@ export default function UserDisplay() {
       console.log('only 1 user, no one to transfer to')
       return false
     }
-    if (parseInt(list[editIndex].Balance) < parseInt(userBalanceTransfer)) {
+    if (parseInt(list[editIndex].Balance) < value) {
       console.log('Not Enough Balance')
       return false
     }
 
     for (i = 0; i < list.length; i++) {
       if (parseInt(list[i].ID) === parseInt(userToTransfer)) {
-        list[editIndex].Balance = parseInt(list[editIndex].Balance) - parseInt(userBalanceTransfer)
-        list[i].Balance = parseInt(list[i].Balance) + parseInt(userBalanceTransfer)
+        list[editIndex].Balance = parseInt(list[editIndex].Balance) - value
+        list[i].Balance = parseInt(list[i].Balance) + value
         console.log(list[editIndex].Balance)
         console.log(list[i].Balance)
       }
@@ -175,6 +177,11 @@ export default function UserDisplay() {
     setNewUserBalance({ ...newUserBalance, editIndex: index })
     setWithdrawModal(!withdrawModal)
   }
+  const toggleTransferModal = (index) => {
+    setNewUserBalance({ ...newUserBalance, editIndex: index })
+    setTransferModal(!transferModal)
+  }
+
 
   const emailChecker = (object) => {
     return object.Email === userEmail
@@ -194,7 +201,13 @@ export default function UserDisplay() {
         toggleModal={toggleWithdrawModal}
         handleClickNewWithdraw={handleClickNewWithdraw}
       />
-
+      <Modal
+        method='transfer'
+        isOpen={transferModal}
+        toggleModal={toggleTransferModal}
+        handleClickNewTransfer={handleClickNewTransfer}
+      />
+  
       <div className='grid'>
         <div className='container notification mt-3'>
           <div className='subtitle'>
@@ -268,13 +281,13 @@ export default function UserDisplay() {
                     <td>{Email}</td>
                     <td>${Balance}</td>
                     <td>
-                      <button className='button is-primary m-1' onClick={() => handleClickWithdraw(index)}>
+                      <button className='button is-primary m-1' onClick={() => toggleWithdrawModal(index)}>
                         Withdraw
                       </button>
-                      <button className='button is-primary m-1' onClick={() => handleClickDeposit(index)}>
+                      <button className='button is-primary m-1' onClick={() => toggleDepositModal(index)}>
                         Deposit
                       </button>
-                      <button className='button is-primary m-1' onClick={() => handleClickTransfer(index)}>
+                      <button className='button is-primary m-1' onClick={() => toggleTransferModal(index)}>
                         TRANSFER
                       </button>
                       <button className='button is-danger m-1' onClick={() => handleClickDelete(index)}>

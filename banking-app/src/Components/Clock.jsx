@@ -8,7 +8,7 @@ export default function Clock() {
     setInterval(() => {
       setClock(time.toLocaleTimeString())
     }, 1000)
-  }, [clock])
+  }, [time])
   return (
     <div className='container text-center'>
       <div className='is-size-6'>{time.toLocaleDateString()}</div>
