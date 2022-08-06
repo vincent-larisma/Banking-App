@@ -184,7 +184,7 @@ export default function UserDisplay() {
   const userListLocal = [
     { Name: 'Vincent Larisma', Email: 'vincentlarisma@gmail.com', Balance: 0, ID: 1659750502716 },
     { Name: 'April Zarate', Email: 'aprilzarate@gmail.com', Balance: '10000', ID: 1659750523317 },
-    { Name: 'Gene Alvarez', Email: 'genealvarez@gmail.com', Balance: 0, ID: 1659750544185 },
+    { Name: 'Gene Alvarez', Email: 'genealvarez@gmail.com', Balance: '100000', ID: 1659750544185 },
     { Name: 'John Doe', Email: 'johndoe@gmail.com', Balance: '69000', ID: 1659750557301 },
   ]
 
