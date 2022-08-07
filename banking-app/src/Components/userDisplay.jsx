@@ -119,13 +119,13 @@ export default function UserDisplay() {
   const handleClickNewDeposit = (value) => {
     let list = userList
 
-    if (value <= 0){
-      alert("Amount Invalid") //deposit amount is negative
+    if (value <= 0) {
+      alert('Amount Invalid') //deposit amount is negative
     } else {
-    list[editIndex].Balance = parseInt(list[editIndex].Balance) + value
-    setUser({ ...user, userList: list })
-    setIsUpdateDeposit(false)
-    console.log('edit index', editIndex)
+      list[editIndex].Balance = parseInt(list[editIndex].Balance) + value
+      setUser({ ...user, userList: list })
+      setIsUpdateDeposit(false)
+      console.log('edit index', editIndex)
     }
   }
 
@@ -133,41 +133,42 @@ export default function UserDisplay() {
     console.log('withdraw clicked')
     let list = userList
 
-    if (parseInt(list[editIndex].Balance) < value ) {
-      alert("Amount Invalid") //Withdraw value is less than user balance
+    if (parseInt(list[editIndex].Balance) < value) {
+      alert('Amount Invalid') //Withdraw value is less than user balance
     } else {
       if (value % 100 === 0) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - value
         setUser({ ...user, userList: list })
         setIsUpdateWithdraw(false)
       } else {
-        alert("Amount Invalid") //amount not a multiple of 100
+        alert('Amount Invalid') //amount not a multiple of 100
       }
     }
   }
+
   const handleClickNewTransfer = (value, id) => {
     let list = userList
     let i
-    
-    console.log(value, id);
 
-    if (parseInt(list[editIndex].Balance) < value) {
-      alert("User does not have enough balance") //user has not enough balance to transfer
+    const idChecker = (list) => {
+      return list.ID == id
     }
-    if ( value <=0 ) {
-      alert("Invalid amount") //amount is negative or 0
+    console.log('value', value, 'ID', id, 'list', list, 'ID CHecker', list.some(idChecker))
+    if (parseInt(list[editIndex].Balance) < value) {
+      alert('User does not have enough balance') //user has not enough balance to transfer
+    }
+    if (value <= 0) {
+      alert('Invalid amount') //amount is negative or 0
     }
     for (i = 0; i < list.length; i++) {
       if (parseInt(list[i].ID) === parseInt(id)) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - value
         list[i].Balance = parseInt(list[i].Balance) + value
-        console.log(list[editIndex].Balance)
-        console.log(list[i].Balance)
-      } 
-      else {
-        alert("Id does not exist")
       }
-    } // problem here, nattransfer ung balance pero nag aallert din ng error message
+    }
+    if (!list.some(idChecker)) {
+      alert('Id does not exist')
+    }
 
     i = 0
     setIsUpdateTransfer(false)
@@ -181,19 +182,19 @@ export default function UserDisplay() {
     setNewUserBalance({ ...newUserBalance, editIndex: index })
     setWithdrawModal(!withdrawModal)
   }
+
   const toggleTransferModal = (index) => {
     let list = userList
     if (list.length === 0) {
-      alert("No Users Yet") // no users yet
+      alert('No Users Yet') // no users yet
     }
     if (list.length === 1) {
-      alert("You only have 1 user") // only 1 user 
+      alert('You only have 1 user') // only 1 user
     }
-    console.log("Transfer Modal")
+    console.log('Transfer Modal')
     setNewUserBalance({ ...newUserBalance, editIndex: index })
     setTransferModal(!transferModal)
   }
-
 
   const emailChecker = (object) => {
     return object.Email === userEmail
@@ -230,7 +231,7 @@ export default function UserDisplay() {
         toggleModal={toggleTransferModal}
         handleClickNewTransfer={handleClickNewTransfer}
       />
-  
+
       <div className='grid'>
         <div className='container notification mt-3'>
           <div className='subtitle'>
