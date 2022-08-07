@@ -163,8 +163,11 @@ export default function UserDisplay() {
         list[i].Balance = parseInt(list[i].Balance) + value
         console.log(list[editIndex].Balance)
         console.log(list[i].Balance)
+      } 
+      else {
+        alert("Id does not exist")
       }
-    }
+    } // problem here, nattransfer ung balance pero nag aallert din ng error message
 
     i = 0
     setIsUpdateTransfer(false)
