@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Modal from './Modal'
-import Clock from './Clock'
 
 export default function UserDisplay() {
   const [user, setUser] = useState({
@@ -134,7 +133,11 @@ export default function UserDisplay() {
     let list = userList
 
     if (parseInt(list[editIndex].Balance) < value) {
+<<<<<<< HEAD:banking-app/src/Components/userDisplay.jsx
       alert('Amount Invalid') //Withdraw value is less than user balance
+=======
+      return false
+>>>>>>> fcf3572909241e3351256e3c1bd536537382e0b3:banking-app/src/Components/UserDisplay.jsx
     } else {
       if (value % 100 === 0) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - value
@@ -238,7 +241,7 @@ export default function UserDisplay() {
       />
 
       <div className='grid'>
-        <div className='container notification mt-3'>
+        <div className='container notification m-4 grid-total-user'>
           <div className='subtitle'>
             <span className='icon-text'>
               <span className='icon'>
@@ -249,7 +252,7 @@ export default function UserDisplay() {
           </div>
           <div className='title flex-center'>{userList.length}</div>
         </div>
-        <div className='container notification mt-3 grid-clock '>
+        <div className='container notification m-4 grid-local-storage grid-container '>
           <div className='subtitle text-center'>
             <span class='icon-text'>
               <span class='icon'>
@@ -285,7 +288,7 @@ export default function UserDisplay() {
             <div className='field pl-4 balance-input'>
               <label className='label'>Balance:</label>
               <input type='number' name='userBalance' value={userBalance} onChange={handleChangeBalance} />
-              <span>(Optional)</span>
+              <span className='is-size-7'>*Optional*</span>
             </div>
             <button className='ml-4 button is-success is-small' type='submit' onClick={handleClickCreateUser}>
               Create User
@@ -293,7 +296,7 @@ export default function UserDisplay() {
           </form>
         </div>
 
-        <table className='table table-size table is-bordered is-striped is-narrow is-hoverable is-fullwidth grid-table mb-6'>
+        <table className='table table-size table is-bordered is-striped is-narrow is-hoverable is-fullwidth grid-table mb-6 mx-2'>
           <caption>
             <h1 className='title m-4'>Bank Users</h1>
           </caption>
@@ -318,10 +321,10 @@ export default function UserDisplay() {
                     <td>${Balance}</td>
                     <td>
                       <button className='button is-primary m-1' onClick={() => toggleWithdrawModal(index)}>
-                        Withdraw
+                        WITHDRAW
                       </button>
                       <button className='button is-primary m-1' onClick={() => toggleDepositModal(index)}>
-                        Deposit
+                        DEPOSIT
                       </button>
                       <button className='button is-primary m-1' onClick={() => toggleTransferModal(index)}>
                         TRANSFER
