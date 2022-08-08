@@ -40,8 +40,6 @@ export default function LoginPage() {
   const handleClickSubmit = () => {
     if (password !== '' && name !== '') {
       if (dataBaseList.some(nameCheck) && dataBaseList.some(passCheck)) {
-        
-
         navigate('/Dashboard')
       } else {
         alert('Please enter the correct username and password!')
@@ -64,6 +62,7 @@ export default function LoginPage() {
                 name='name'
                 value={name}
                 onChange={handleChangeName}
+                required
               />
               <span className='icon is-small is-left'>
                 <i className='fa-solid fa-user'></i>
@@ -79,6 +78,7 @@ export default function LoginPage() {
                 name='password'
                 value={password}
                 onChange={handleChangePass}
+                required
               />
               <span className='icon is-small is-left'>
                 <i className='fas fa-lock'></i>
