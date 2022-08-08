@@ -6,7 +6,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: [page-start] 1fr [info-start] 5rem [center-start] minmax(0, 624px) [center-end] 5rem [info-end] 1fr [page-end];
+  grid-template-columns: [page-start] 1fr [info-start] minmax(0, 5rem) [center-start] minmax(0, 624px) [center-end] 5rem [info-end] 1fr [page-end];
   grid-template-rows: [page-start]auto [page-end]1fr;
 
   .grid-create-user {
