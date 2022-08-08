@@ -40,7 +40,8 @@ export default function Modal(props) {
 
   const handleTransferId = (event) => {
     const { value, name } = event.target
-    setTransferId({ ...transferId, [name]: value })
+    setTransferId({ ...transferNewId, [name]: value })
+    console.log(transferNewId)
   }
 
   const handleSubmit = () => {
@@ -51,7 +52,7 @@ export default function Modal(props) {
       props.handleClickNewWithdraw(parseInt(withdrawValue))
     }
     if (props.method === 'transfer') {
-      props.handleClickNewTransfer(parseInt(transferValue, transferNewId))
+      props.handleClickNewTransfer(parseInt(transferValue), transferNewId)
     }
   }
 
