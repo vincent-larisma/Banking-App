@@ -154,6 +154,10 @@ export default function UserDisplay() {
       return list.ID == id
     }
     console.log('value', value, 'ID', id, 'list', list, 'ID CHecker', list.some(idChecker))
+    if (!list.some(idChecker)) {
+      alert('Id does not exist')
+      return false
+    }
     if (parseInt(list[editIndex].Balance) < value) {
       alert('User does not have enough balance') //user has not enough balance to transfer
     }
@@ -168,6 +172,7 @@ export default function UserDisplay() {
     }
     if (!list.some(idChecker)) {
       alert('Id does not exist')
+      return false
     }
 
     i = 0
