@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Modal from './Modal'
-import Clock from './Clock'
 
 export default function UserDisplay() {
   const [user, setUser] = useState({
@@ -127,7 +126,7 @@ export default function UserDisplay() {
     console.log('withdraw clicked')
     let list = userList
 
-    if (parseInt(list[editIndex].Balance) < value ) {
+    if (parseInt(list[editIndex].Balance) < value) {
       return false
     } else {
       if (parseInt(userBalanceWithdraw) % 100 === 0) {
@@ -183,7 +182,6 @@ export default function UserDisplay() {
     setTransferModal(!transferModal)
   }
 
-
   const emailChecker = (object) => {
     return object.Email === userEmail
   }
@@ -219,9 +217,9 @@ export default function UserDisplay() {
         toggleModal={toggleTransferModal}
         handleClickNewTransfer={handleClickNewTransfer}
       />
-  
+
       <div className='grid'>
-        <div className='container notification mt-3'>
+        <div className='container notification m-4 grid-total-user'>
           <div className='subtitle'>
             <span className='icon-text'>
               <span className='icon'>
@@ -232,7 +230,7 @@ export default function UserDisplay() {
           </div>
           <div className='title flex-center'>{userList.length}</div>
         </div>
-        <div className='container notification mt-3 grid-clock '>
+        <div className='container notification m-4 grid-local-storage grid-container '>
           <div className='subtitle text-center'>
             <span class='icon-text'>
               <span class='icon'>
@@ -276,7 +274,7 @@ export default function UserDisplay() {
           </form>
         </div>
 
-        <table className='table table-size table is-bordered is-striped is-narrow is-hoverable is-fullwidth grid-table mb-6'>
+        <table className='table table-size table is-bordered is-striped is-narrow is-hoverable is-fullwidth grid-table mb-6 mx-2'>
           <caption>
             <h1 className='title m-4'>Bank Users</h1>
           </caption>
