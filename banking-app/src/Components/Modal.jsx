@@ -20,10 +20,14 @@ const [transferId, setTransferId] = useState({
 })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 01ee73e (Merge pull request #13 from genalv/gene-branch)
   const handleChangeDeposit = (event) => {
     const { value, name } = event.target
     setDeposit({ ...deposit, [name]: value })
   }
+<<<<<<< HEAD
 =======
 // const handleUserToTransfer = (e) => {
 //   const { value, name } = e.target
@@ -35,6 +39,8 @@ const { withdrawValue } = withdraw;
 const { transferValue } = transfer;
 const { transferNewId } = transferId;
 >>>>>>> parent of 215a062 (update)
+=======
+>>>>>>> parent of 01ee73e (Merge pull request #13 from genalv/gene-branch)
 
 const handleChangeDeposit = (event) => {
   const { value, name } = event.target
@@ -52,6 +58,9 @@ const handleChangeTransfer = (event) => {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 01ee73e (Merge pull request #13 from genalv/gene-branch)
   const handleSubmit = () => {
     if (props.method === 'deposit') {
       props.handleClickNewDeposit(parseInt(depositValue))
@@ -138,11 +147,18 @@ const handleChangeTransfer = (event) => {
             </button>
             <button className='close-modal delete' onClick={props.toggleModal}></button>
           </div>
+<<<<<<< HEAD
 =======
 const handleTransferId = (event) => {
   const { value, name } = event.target
   setTransferId({ ...transferNewId, [name]: value})
   console.log(transferNewId)
+=======
+        </div>
+      )}
+    </>
+  )
+>>>>>>> parent of 01ee73e (Merge pull request #13 from genalv/gene-branch)
 }
 
 const handleSubmit = () =>{
