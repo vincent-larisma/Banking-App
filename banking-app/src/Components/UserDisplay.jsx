@@ -266,7 +266,7 @@ export default function UserDisplay() {
             <div className='field pl-4 balance-input'>
               <label className='label'>Balance:</label>
               <input type='number' name='userBalance' value={userBalance} onChange={handleChangeBalance} />
-              <span className='is-size-7'>*Optional*</span>
+              <span>(Optional)</span>
             </div>
             <button className='ml-4 button is-success is-small' type='submit' onClick={handleClickCreateUser}>
               Create User
@@ -299,10 +299,10 @@ export default function UserDisplay() {
                     <td>${Balance}</td>
                     <td>
                       <button className='button is-primary m-1' onClick={() => toggleWithdrawModal(index)}>
-                        WITHDRAW
+                        Withdraw
                       </button>
                       <button className='button is-primary m-1' onClick={() => toggleDepositModal(index)}>
-                        DEPOSIT
+                        Deposit
                       </button>
                       <button className='button is-primary m-1' onClick={() => toggleTransferModal(index)}>
                         TRANSFER
