@@ -23,25 +23,6 @@ export default function UserDisplay() {
   const [isUpdateWithdraw, setIsUpdateWithdraw] = useState(false)
   const [isUpdateTransfer, setIsUpdateTransfer] = useState(false)
 
-  //update to true
-  const handleClickDeposit = (index) => {
-    setIsUpdateDeposit(true)
-    setNewUserBalance({ ...newUserBalance, editIndex: index })
-    console.log(newUserBalance)
-  }
-
-  const handleChangeDepositUpdate = (e) => {
-    const { value, name } = e.target
-    setNewUserBalance({ ...newUserBalance, [name]: value })
-  }
-
-  //update to true
-  const handleClickWithdraw = (index) => {
-    setIsUpdateWithdraw(true)
-    setNewUserBalance({ ...newUserBalance, editIndex: index })
-    console.log(newUserBalance)
-  }
-
   const handleChangeWithdrawUpdate = (e) => {
     const { value, name } = e.target
     setNewUserBalance({ ...newUserBalance, [name]: value })
@@ -55,12 +36,6 @@ export default function UserDisplay() {
   const handleUserToTransfer = (e) => {
     const { value, name } = e.target
     setNewUserBalance({ ...newUserBalance, [name]: value })
-  }
-
-  const handleClickTransfer = (index) => {
-    setIsUpdateTransfer(true)
-    setNewUserBalance({ ...newUserBalance, editIndex: index })
-    console.log(newUserBalance)
   }
 
   const { userList, userEmail, userBalance, userName } = user
@@ -81,7 +56,7 @@ export default function UserDisplay() {
     const { value, name } = e.target
     setUser({ ...user, [name]: value })
   }
-  
+
   //Push the user input to userList
   const handleClickCreateUser = () => {
     let list = userList
@@ -120,35 +95,33 @@ export default function UserDisplay() {
   const handleClickNewDeposit = (value) => {
     let list = userList
 
-    if (value <= 0){
-      alert("Amount Invalid") //deposit amount is negative
+    if (value <= 0) {
+      alert('Amount Invalid') //deposit amount is negative
       return
     } else {
-    list[editIndex].Balance = parseInt(list[editIndex].Balance) + value
-    setUser({ ...user, userList: list })
-    setIsUpdateDeposit(false)
-    console.log('edit index', editIndex)
+      list[editIndex].Balance = parseInt(list[editIndex].Balance) + value
+      setUser({ ...user, userList: list })
+      setIsUpdateDeposit(false)
     }
   }
 
   const handleClickNewWithdraw = (value) => {
-    console.log('withdraw clicked')
     let list = userList
 
-    if ( value <= 0 ){
-      alert("Amount Invalid")
-      return;
+    if (value <= 0) {
+      alert('Amount Invalid')
+      return
     }
-    if (parseInt(list[editIndex].Balance) < value ) {
-      alert("Amount Invalid") //Withdraw value is less than user balance
-      return;
+    if (parseInt(list[editIndex].Balance) < value) {
+      alert('Amount Invalid') //Withdraw value is less than user balance
+      return
     } else {
       if (value % 100 === 0) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - value
         setUser({ ...user, userList: list })
         setIsUpdateWithdraw(false)
       } else {
-        alert("Amount Invalid") //amount not a multiple of 100
+        alert('Amount Invalid') //amount not a multiple of 100
       }
     }
   }
@@ -178,8 +151,6 @@ export default function UserDisplay() {
       if (parseInt(list[i].ID) === parseInt(id)) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - value
         list[i].Balance = parseInt(list[i].Balance) + value
-        console.log(list[editIndex].Balance)
-        console.log(list[i].Balance)
       }
     }
 
@@ -324,10 +295,10 @@ export default function UserDisplay() {
                     <td>${Balance}</td>
                     <td>
                       <button className='button is-primary m-1' onClick={() => toggleWithdrawModal(index)}>
-                        Withdraw
+                        WITHDRAW
                       </button>
                       <button className='button is-primary m-1' onClick={() => toggleDepositModal(index)}>
-                        Deposit
+                        DEPOSIT
                       </button>
                       <button className='button is-primary m-1' onClick={() => toggleTransferModal(index)}>
                         TRANSFER
