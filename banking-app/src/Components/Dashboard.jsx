@@ -8,7 +8,7 @@ import UserDisplay from './UserDisplay'
 export default function Dashboard() {
   return (
     <>
-      <Navbar />
+      <Navbar method='logout' />
       <UserDisplay />
       <Footer />
     </>

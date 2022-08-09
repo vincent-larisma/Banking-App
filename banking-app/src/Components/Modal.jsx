@@ -23,16 +23,14 @@ export default function Modal(props) {
   const { transferValue } = transfer
   const { transferNewId } = transferId
 
-  const handleChangeDeposit = (event) => {
-    const { value, name } = event.target
-    setDeposit({ ...deposit, [name]: value })
-  }
-
   const handleChangeWithdraw = (event) => {
     const { value, name } = event.target
     setWithdraw({ ...withdraw, [name]: value })
   }
-
+  const handleChangeDeposit = (event) => {
+    const { value, name } = event.target
+    setDeposit({ ...deposit, [name]: value })
+  }
   const handleChangeTransfer = (event) => {
     const { value, name } = event.target
     setTransfer({ ...transfer, [name]: value })
@@ -50,7 +48,7 @@ export default function Modal(props) {
       props.handleClickNewWithdraw(parseInt(withdrawValue))
     }
     if (props.method === 'transfer') {
-      props.handleClickNewTransfer(parseInt(transferValue, transferNewId))
+      props.handleClickNewTransfer(parseInt(transferValue), transferNewId)
     }
   }
 

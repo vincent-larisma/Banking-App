@@ -18,8 +18,17 @@
   .grid-login {
     grid-column: center-start / center-end;
   }
-  .grid-clock {
+  .grid-local-storage {
+    justify-self: center;
     grid-column: info-end / page-end;
+    width: 250px;
+  }
+  .grid-total-user {
+    justify-self: center;
+
+    place-content: center;
+    grid-column: page-start / info-start;
+    width: 250px;
   }
 }
 
