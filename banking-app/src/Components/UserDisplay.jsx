@@ -81,6 +81,7 @@ export default function UserDisplay() {
     const { value, name } = e.target
     setUser({ ...user, [name]: value })
   }
+  
   //Push the user input to userList
   const handleClickCreateUser = () => {
     let list = userList
@@ -94,12 +95,14 @@ export default function UserDisplay() {
         list.push(listedUsers)
 
         setUser({ ...user, userList: list })
-        setUser({ ...user, userName: '', userEmail: '', userBalance: 0 })
+        setUser({ ...user, userName: '', userEmail: '', userBalance: 0 }) //input placeholder reset after creating a user
       } else if (userList.some(emailChecker)) {
         alert(`Email ${userEmail} is already in use`)
+        setUser({ ...user, userName: '', userEmail: '', userBalance: 0 }) //input placeholder update when there is an error
       }
     }
   }
+
   //Prevent from reloading
   const handleSubmitUser = (e) => {
     e.preventDefault()
@@ -116,48 +119,63 @@ export default function UserDisplay() {
 
   const handleClickNewDeposit = (value) => {
     let list = userList
+
+    if (value <= 0){
+      alert("Amount Invalid") //deposit amount is negative
+      return
+    } else {
     list[editIndex].Balance = parseInt(list[editIndex].Balance) + value
     setUser({ ...user, userList: list })
     setIsUpdateDeposit(false)
     console.log('edit index', editIndex)
+    }
   }
 
   const handleClickNewWithdraw = (value) => {
     console.log('withdraw clicked')
     let list = userList
 
-    if (parseInt(list[editIndex].Balance) < value) {
-      return false
+    if ( value <= 0 ){
+      alert("Amount Invalid")
+      return;
+    }
+    if (parseInt(list[editIndex].Balance) < value ) {
+      alert("Amount Invalid") //Withdraw value is less than user balance
+      return;
     } else {
-      if (parseInt(userBalanceWithdraw) % 100 === 0) {
+      if (value % 100 === 0) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - value
         setUser({ ...user, userList: list })
         setIsUpdateWithdraw(false)
       } else {
-        return false
+        alert("Amount Invalid") //amount not a multiple of 100
       }
     }
   }
-  const handleClickNewTransfer = (value) => {
+
+  const handleClickNewTransfer = (value, id) => {
     let list = userList
     let i
 
-    console.log(1)
-    if (list.length === 0) {
-      console.log('no users yet')
-      return false // no users yet
+    const idChecker = (list) => {
+      return list.ID == id
     }
-    if (list.length === 1) {
-      console.log('only 1 user, no one to transfer to')
-      return false
+    if (value <= 0) {
+      alert('Invalid amount') //amount is negative or 0
+      return
     }
     if (parseInt(list[editIndex].Balance) < value) {
-      console.log('Not Enough Balance')
-      return false
+      alert('User does not have enough balance') //user has not enough balance to transfer
+      return
+    }
+
+    if (!list.some(idChecker)) {
+      alert('Id does not exist')
+      return
     }
 
     for (i = 0; i < list.length; i++) {
-      if (parseInt(list[i].ID) === parseInt(userToTransfer)) {
+      if (parseInt(list[i].ID) === parseInt(id)) {
         list[editIndex].Balance = parseInt(list[editIndex].Balance) - value
         list[i].Balance = parseInt(list[i].Balance) + value
         console.log(list[editIndex].Balance)
@@ -179,6 +197,13 @@ export default function UserDisplay() {
   }
   const toggleTransferModal = (index) => {
     setNewUserBalance({ ...newUserBalance, editIndex: index })
+    let list = userList
+    if (list.length === 0) {
+      alert('No Users Yet') // no users yet
+    }
+    if (list.length === 1) {
+      alert('You only have 1 user') // only 1 user
+    }
     setTransferModal(!transferModal)
   }
 

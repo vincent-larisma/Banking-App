@@ -50,7 +50,7 @@ export default function Modal(props) {
       props.handleClickNewWithdraw(parseInt(withdrawValue))
     }
     if (props.method === 'transfer') {
-      props.handleClickNewTransfer(parseInt(transferValue, transferNewId))
+      props.handleClickNewTransfer(parseInt(transferValue), transferNewId)
     }
   }
 
