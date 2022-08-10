@@ -1,11 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function SideBar() {
+export default function SideBar({ handleClickPage }) {
   const navigate = useNavigate()
   const handleClickLogout = () => {
     navigate('/Login')
   }
+  const [sideBarState, setSidebarState] = useState('Home')
+
+  const handleClickState = (value) => {
+    if (value === 'Home') {
+      setSidebarState('Home')
+      handleClickPage(value)
+    } else if (value === 'Withdraw') {
+      setSidebarState('Withdraw')
+      handleClickPage(value)
+    } else if (value === 'Deposit') {
+      setSidebarState('Deposit')
+      handleClickPage(value)
+    } else if (value === 'Transfer') {
+      setSidebarState('Transfer')
+      handleClickPage(value)
+    } else if (value === 'History') {
+      setSidebarState('History')
+      handleClickPage(value)
+    }
+  }
+
   return (
     <>
       <div className='side-bar-container has-background-black  '>
@@ -23,7 +44,9 @@ export default function SideBar() {
           <aside className='menu '>
             <ul className='menu-list pl-3 pt-3  '>
               <li>
-                <a className='has-text-white is-active'>
+                <a
+                  className={sideBarState === 'Home' ? 'has-text-white is-active' : 'has-text-white'}
+                  onClick={() => handleClickState('Home')}>
                   <i class='fas fa-home '></i> Home
                 </a>
               </li>
@@ -31,30 +54,38 @@ export default function SideBar() {
             <p className='menu-label pl-2 has-text-white pt-4'>Transactions</p>
             <ul className='menu-list pl-3 '>
               <li>
-                <a className='has-text-white '>
+                <a
+                  className={sideBarState === 'Withdraw' ? 'has-text-white is-active' : 'has-text-white'}
+                  onClick={() => handleClickState('Withdraw')}>
                   <h1>
-                    <h1></h1> <i class='fas fa-home '></i> Withdraw
+                    <i class='fa-solid fa-money-bills'></i> Withdraw
                   </h1>
                 </a>
               </li>
               <li>
-                <a className='has-text-white'>
+                <a
+                  className={sideBarState === 'Deposit' ? 'has-text-white is-active' : 'has-text-white'}
+                  onClick={() => handleClickState('Deposit')}>
                   <h1>
-                    <i class='fas fa-home'></i> Desposit
+                    <i class='fa-solid fa-piggy-bank'></i> Deposit
                   </h1>
                 </a>
               </li>
               <li>
-                <a className='has-text-white'>
+                <a
+                  className={sideBarState === 'Transfer' ? 'has-text-white is-active' : 'has-text-white'}
+                  onClick={() => handleClickState('Transfer')}>
                   <h1>
-                    <i class='fas fa-home'></i> Transfer
+                    <i class='fa-solid fa-money-bill-transfer'></i> Transfer
                   </h1>
                 </a>
               </li>
               <li>
-                <a className='has-text-white'>
+                <a
+                  className={sideBarState === 'History' ? 'has-text-white is-active' : 'has-text-white'}
+                  onClick={() => handleClickState('History')}>
                   <h1>
-                    <i class='fas fa-home'></i> History
+                    <i class='fa-solid fa-receipt'></i> History
                   </h1>
                 </a>
               </li>
