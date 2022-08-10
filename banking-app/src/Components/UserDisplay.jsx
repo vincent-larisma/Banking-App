@@ -57,23 +57,30 @@ export default function UserDisplay() {
     setUser({ ...user, [name]: value })
   }
 
+  const emailRestriction = () => {
+    return
+  }
+
   //Push the user input to userList
   const handleClickCreateUser = () => {
     let list = userList
+
     const listedUsers = { Name: '', Email: '', Balance: 0, ID: Date.now() }
     //Don't create users if email or name is empty
     if (userName !== '' && userEmail !== '') {
-      if (!userList.some(emailChecker)) {
+      if (!userList.some(emailChecker) && userEmail.indexOf('@') > -1 && userEmail.indexOf('.com') > -1) {
         listedUsers.Name = userName
         listedUsers.Email = userEmail
         listedUsers.Balance = userBalance
         list.push(listedUsers)
-
         setUser({ ...user, userList: list })
         setUser({ ...user, userName: '', userEmail: '', userBalance: 0 }) //input placeholder reset after creating a user
+      } else if (userEmail.indexOf('@') == -1 && userEmail.indexOf('.com') == -1) {
+        alert(`Email ${userEmail} is not a valid email address`)
+        setUser({ ...user, userEmail: '' }) //input placeholder update when there is an error
       } else if (userList.some(emailChecker)) {
         alert(`Email ${userEmail} is already in use`)
-        setUser({ ...user, userName: '', userEmail: '', userBalance: 0 }) //input placeholder update when there is an error
+        setUser({ ...user, userEmail: '' }) //input placeholder update when there is an error
       }
     }
   }
