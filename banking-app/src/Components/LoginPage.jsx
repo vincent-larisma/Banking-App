@@ -13,7 +13,7 @@ export default function LoginPage() {
     userType: '',
   })
 
-  const { name, password, userType } = dataBase
+  const { userName, password, userType } = dataBase
 
   const dataBaseList = [
     { name: 'admin', password: 'admin', userType: 'admin' },
@@ -30,7 +30,7 @@ export default function LoginPage() {
   }
 
   const nameCheck = (object) => {
-    return object.name === name
+    return object.name === userName
   }
 
   const passCheck = (object) => {
@@ -38,15 +38,17 @@ export default function LoginPage() {
   }
 
   const handleClickSubmit = () => {
-    if (password !== '' && name !== '') {
+    if (password !== '' && userName !== '') {
       if (dataBaseList.some(nameCheck) && dataBaseList.some(passCheck)) {
-        
-
         navigate('/Dashboard')
       } else {
         alert('Please enter the correct username and password!')
       }
     }
+  }
+
+  const handleClickRegister = () => {
+    navigate('/Register')
   }
 
   return (
@@ -61,8 +63,8 @@ export default function LoginPage() {
                 className='input'
                 type='text'
                 placeholder='Username'
-                name='name'
-                value={name}
+                name='userName'
+                value={userName}
                 onChange={handleChangeName}
               />
               <span className='icon is-small is-left'>
@@ -85,6 +87,9 @@ export default function LoginPage() {
               </span>
             </p>
           </div>
+          <button className='button is-success m-2' onClick={handleClickRegister}>
+            Create User
+          </button>
           <button className='button is-success m-2' onClick={handleClickSubmit}>
             Submit
           </button>

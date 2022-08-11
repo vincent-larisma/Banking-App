@@ -11,21 +11,21 @@ export default function Navbar({ method }) {
       <nav className='navbar is-dark' role='navigation' aria-label='main navigation'>
         <div className='navbar-brand'>
           <div className='navbar-item pl-6 is-size-4'>
-            <span class='icon-text'>
-              <span class='icon'>
-                <i class='fa-solid fa-earth-europe'></i>
+            <span className='icon-text'>
+              <span className='icon'>
+                <i className='fa-solid fa-earth-europe'></i>
               </span>
               <span>BANK</span>
             </span>
           </div>
         </div>
         {method == 'logout' && (
-          <div class='navbar-end flex-container-logout pt-1 pr-6 is-size-5'>
-            <div class='navbar-item'>
+          <div className='navbar-end flex-container-logout pt-1 pr-6 is-size-5'>
+            <div className='navbar-item'>
               <div className='container'>
-                <span class='icon-text'>
-                  <span class='icon'>
-                    <i class='fa-solid fa-right-from-bracket' onClick={handleClickLogout}></i>
+                <span className='icon-text'>
+                  <span className='icon'>
+                    <i className='fa-solid fa-right-from-bracket' onClick={handleClickLogout}></i>
                   </span>
                 </span>
               </div>
