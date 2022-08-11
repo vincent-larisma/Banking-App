@@ -22,7 +22,7 @@ export default function HomePage() {
                 </h1>
                 <h1 className='title pl-3'>ID here</h1>
               </div>
-              {/* <div class='column is-0'></div> */}
+              <div class='column is-0'></div>
 
               <div class='column notification is-link'>
                 <h1 className='subtitle'>
