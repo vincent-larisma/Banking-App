@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Modal from './Modal'
 
 export default function UserDisplay() {
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
   const [user, setUser] = useState({
     userEmail: '',
     userName: '',
@@ -78,8 +79,6 @@ export default function UserDisplay() {
         listedUsers.Email = userEmail
         listedUsers.Balance = userBalance
         list.push(listedUsers)
-        console.log(list)
-        console.log(userListLocal)
         userListLocal.push(...list)
         localStorage.setItem('userListKey', JSON.stringify(userListLocal))
         setUser({ ...user, userList: list })
@@ -267,7 +266,7 @@ export default function UserDisplay() {
               <span>Total Users</span>
             </span>
           </div>
-          <div className='title flex-center'>{userList.length}</div>
+          <div className='title flex-center'>{userListLocalStorage.length}</div>
         </div>
         <div className='container notification m-4 grid-local-storage grid-container '>
           <div className='subtitle text-center'>
@@ -328,11 +327,11 @@ export default function UserDisplay() {
           </thead>
           <tbody>
             {/* Displays the userList  */}
-            {userList.length ? (
-              userList.map(({ Name, Email, Balance, ID }, index) => {
+            {userListLocalStorage.length ? (
+              userListLocalStorage.map(({ UserName, FullName, Email, Balance, ID }, index) => {
                 return (
                   <tr key={index}>
-                    <td>{Name}</td>
+                    <td>{FullName == '' ? UserName : FullName}</td>
                     <td>{ID}</td>
                     <td>{Email}</td>
                     <td>${Balance}</td>

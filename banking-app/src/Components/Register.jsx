@@ -52,7 +52,6 @@ export default function Register() {
   const handleClickRegister = () => {
     let newList = userList
     let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
-    console.log(userListLocalStorage)
     let listedUsers = {
       UserName: '',
       Password: '',
@@ -69,8 +68,6 @@ export default function Register() {
     listedUsers.Email = userEmail
     listedUsers.Gender = userGender
     listedUsers.Balance = userBalance
-    console.log('listedUser', listedUsers)
-    console.log('storage', userListLocalStorage)
     userListLocalStorage.push(listedUsers)
     localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
     setList({ ...list, userList: newList })
