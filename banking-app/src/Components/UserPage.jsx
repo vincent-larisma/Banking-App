@@ -8,6 +8,7 @@ import HistoryPage from './HistoryPage'
 
 export default function UserPage() {
   const [page, setPage] = useState('Home')
+  let valueLoggedInIndex = localStorage.getItem('currentIndex')
 
   const handleClickPage = (value) => {
     if (value === 'Home') {
@@ -26,11 +27,11 @@ export default function UserPage() {
   return (
     <>
       <SideBar handleClickPage={handleClickPage} />
-      {page === 'Home' && <HomePage />}
-      {page === 'Withdraw' && <WithdrawPage />}
-      {page === 'Deposit' && <DepositPage />}
-      {page === 'Transfer' && <TransferPage />}
-      {page === 'History' && <HistoryPage />}
+      {page === 'Home' && <HomePage index={valueLoggedInIndex} />}
+      {page === 'Withdraw' && <WithdrawPage index={valueLoggedInIndex} />}
+      {page === 'Deposit' && <DepositPage index={valueLoggedInIndex} />}
+      {page === 'Transfer' && <TransferPage index={valueLoggedInIndex} />}
+      {page === 'History' && <HistoryPage index={valueLoggedInIndex} />}
     </>
   )
 }

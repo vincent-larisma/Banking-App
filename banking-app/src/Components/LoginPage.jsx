@@ -45,11 +45,10 @@ export default function LoginPage() {
       if (dataBaseList.some(nameCheck) && dataBaseList.some(passCheck)) {
         navigate('/Dashboard')
       } else if (userListLocalStorage.some(UsernameCheck) && userListLocalStorage.some(passwordCheck)) {
-        console.log('logged in')
         for (let i = 0; i < userListLocalStorage.length; i++) {
-          if (userListLocalStorage[i].Password == password) {
-            console.log('user index ', i)
-            console.log('user is', userListLocalStorage[i])
+          if (userListLocalStorage[i].UserName == userName && userListLocalStorage[i].Password == password) {
+            localStorage.setItem('currentIndex', JSON.stringify(i))
+            navigate('/User')
           }
         }
       } else {

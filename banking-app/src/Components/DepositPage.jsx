@@ -1,6 +1,13 @@
 import React from 'react'
 
-export default function () {
+export default function ({ index }) {
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
+  let user = userListLocalStorage[index]
+
+  //currency format
+  function formatToCurrency(amount) {
+    return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+  }
   return (
     <>
       <div className='sidebar-margin '>
@@ -23,7 +30,7 @@ export default function () {
               <div className='column notification is-link'>
                 <h1 className='subtitle'>Total Amount in Bank: </h1>
                 <div className='container notification is-link is-light'>
-                  <h1 className='title has-text-centered'>Add Number Here</h1>
+                  <h1 className='title has-text-centered'>${formatToCurrency(user.Balance)}</h1>
                 </div>
               </div>
             </div>

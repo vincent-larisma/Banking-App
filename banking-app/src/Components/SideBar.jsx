@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 export default function SideBar({ handleClickPage }) {
   const navigate = useNavigate()
   const handleClickLogout = () => {
+    localStorage.setItem('currentIndex', JSON.stringify(0))
     navigate('/Login')
   }
   const [sideBarState, setSidebarState] = useState('Home')
