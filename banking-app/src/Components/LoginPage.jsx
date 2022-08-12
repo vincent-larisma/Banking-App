@@ -29,7 +29,13 @@ export default function LoginPage() {
   const nameCheck = (object) => {
     return object.name === userName
   }
+  const UsernameCheck = (object) => {
+    return object.UserName === userName
+  }
 
+  const passwordCheck = (object) => {
+    return object.Password === password
+  }
   const passCheck = (object) => {
     return object.password === password
   }
@@ -38,11 +44,15 @@ export default function LoginPage() {
     if (password !== '' && userName !== '') {
       if (dataBaseList.some(nameCheck) && dataBaseList.some(passCheck)) {
         navigate('/Dashboard')
-      }
-      // else if (userListLocalStorage.Email.indexOf()) {
-
-      // }
-      else {
+      } else if (userListLocalStorage.some(UsernameCheck) && userListLocalStorage.some(passwordCheck)) {
+        console.log('logged in')
+        for (let i = 0; i < userListLocalStorage.length; i++) {
+          if (userListLocalStorage[i].Password == password) {
+            console.log('user index ', i)
+            console.log('user is', userListLocalStorage[i])
+          }
+        }
+      } else {
         alert('Please enter the correct username and password!')
       }
     }
