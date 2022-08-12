@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 // import Navbar from './Navbar'
 // import Footer from './Footer'
 
-export default function Register(props) {
+export default function Register() {
 const navigate = useNavigate()
 
 const [list, setList] = useState({
