@@ -3,12 +3,12 @@ import React from 'react'
 export default function HomePage({ index }) {
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
 
-  let user = JSON.stringify(userListLocalStorage[index])
+  let user = userListLocalStorage[index]
 
-  //currency format
-  // function formatToCurrency(amount) {
-  //   return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
-  // }
+  // currency format
+  function formatToCurrency(amount) {
+    return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+  }
 
   return (
     <>
@@ -52,7 +52,7 @@ export default function HomePage({ index }) {
               <h1 className='subtitle'>
                 <i class='fa-solid fa-wallet'></i> Total Cash Amount:
               </h1>
-              {/* <h1 className='title has-text-centered'>${formatToCurrency(user.Balance)}</h1> */}
+              <h1 className='title has-text-centered'>$ {formatToCurrency(user.Balance)}</h1>
             </div>
           </div>
         </section>

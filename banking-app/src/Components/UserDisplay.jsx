@@ -200,39 +200,7 @@ export default function UserDisplay() {
   }
 
   const userListLocal = [
-    {
-      UserName: 'vince',
-      Password: 'vince',
-      FullName: 'Vincent Larisma',
-      Email: 'vincentlarisma@gmail.com',
-      Gender: 'M',
-      Balance: 0,
-      ID: 1659750502716,
-    },
-    {
-      UserName: 'april',
-      Password: 'april',
-      FullName: 'April Zarate',
-      Email: 'aprilzarate@gmail.com',
-      Balance: '10000',
-      ID: 1659750523317,
-    },
-    {
-      UserName: 'gene',
-      Password: 'gene',
-      FullName: 'Gene Alvarez',
-      Email: 'genealvarez@gmail.com',
-      Balance: '100000',
-      ID: 1659750544185,
-    },
-    {
-      UserName: 'john',
-      Password: 'john',
-      FullName: 'John Doe',
-      Email: 'johndoe@gmail.com',
-      Balance: '69000',
-      ID: 1659750557301,
-    },
+    
   ]
 
   return (

@@ -10,6 +10,8 @@ export default function UserPage() {
   const [page, setPage] = useState('Home')
   let valueLoggedInIndex = localStorage.getItem('currentIndex')
 
+  const [deposit, setDeposit] = useState()
+ 
   const handleClickPage = (value) => {
     if (value === 'Home') {
       setPage('Home')

@@ -55,9 +55,9 @@ export default function Register() {
     let listedUsers = {
       UserName: '',
       Password: '',
-      FullName: '',
+      FullName: 'Not Found',
       Email: '',
-      Gender: '',
+      Gender: 'Not Found',
       Balance: 0,
       ID: Date.now(),
       isAdmin: false,

@@ -22,7 +22,7 @@ export default function TransferPage({ index }) {
               <div className='column notification is-link is-full'>
                 <h1 className='subtitle'>Total Amount in Bank: </h1>
                 <div className='container notification is-link is-light'>
-                  <h1 className='title has-text-centered'>${formatToCurrency(user.Balance)}</h1>
+                  <h1 className='title has-text-centered'>$ {formatToCurrency(user.Balance)}</h1>
                 </div>
               </div>
               <div className='column notification is-link is-half is-offset-one-quarter'>
