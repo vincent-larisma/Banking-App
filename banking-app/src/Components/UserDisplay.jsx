@@ -329,10 +329,10 @@ export default function UserDisplay() {
           <tbody>
             {/* Displays the userList  */}
             {userList.length ? (
-              userList.map(({ UserName, Email, Balance, ID }, index) => {
+              userList.map(({ Name, Email, Balance, ID }, index) => {
                 return (
                   <tr key={index}>
-                    <td>{UserName}</td>
+                    <td>{Name}</td>
                     <td>{ID}</td>
                     <td>{Email}</td>
                     <td>${Balance}</td>
