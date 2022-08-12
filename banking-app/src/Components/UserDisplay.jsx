@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Modal from './Modal'
-import Register from './Register'
 
 export default function UserDisplay() {
   const [user, setUser] = useState({
@@ -19,7 +18,7 @@ export default function UserDisplay() {
     editIndex: '',
   })
 
-  const { editIndex, userBalanceDeposit, userBalanceWithdraw, userBalanceTransfer, userToTransfer } = newUserBalance
+  const { editIndex, userBalanceWithdraw, userBalanceTransfer, userToTransfer } = newUserBalance
 
   const [isUpdateDeposit, setIsUpdateDeposit] = useState(false)
   const [isUpdateWithdraw, setIsUpdateWithdraw] = useState(false)
@@ -59,32 +58,40 @@ export default function UserDisplay() {
     setUser({ ...user, [name]: value })
   }
 
-  const emailRestriction = () => {
-    return
-  }
-
   //Push the user input to userList
   const handleClickCreateUser = () => {
-    // let list = userList
-    console.log(userListLocal)
-  // const listedUsers = { Name: '', Email: '', Gender: '', Balance: 0, ID: Date.now() }
-  //   //Don't create users if email or name is empty
-  //   if (userName !== '' && userEmail !== '') {
-  //     if (!userList.some(emailChecker) && userEmail.indexOf('@') > -1 && userEmail.indexOf('.com') > -1) {
-  //       listedUsers.Name = userName
-  //       listedUsers.Email = userEmail
-  //       listedUsers.Balance = userBalance
-  //       list.push(listedUsers)
-  //       setUser({ ...user, userList: list })
-  //       setUser({ ...user, userName: '', userEmail: '', userBalance: 0 }) //input placeholder reset after creating a user
-  //     } else if (userEmail.indexOf('@') == -1 && userEmail.indexOf('.com') == -1) {
-  //       alert(`Email ${userEmail} is not a valid email address`)
-  //       setUser({ ...user, userEmail: '' }) //input placeholder update when there is an error
-  //     } else if (userList.some(emailChecker)) {
-  //       alert(`Email ${userEmail} is already in use`)
-  //       setUser({ ...user, userEmail: '' }) //input placeholder update when there is an error
-  //     }
-  //   }
+    let list = userList
+    const listedUsers = {
+      UserName: '',
+      Password: Date.now(),
+      FullName: '',
+      Email: '',
+      Gender: 'Not Found',
+      Balance: 0,
+      ID: Date.now(),
+      isAdmin: false,
+    }
+    //Don't create users if email or name is empty
+    if (userName !== '' && userEmail !== '') {
+      if (!userList.some(emailChecker) && userEmail.indexOf('@') > -1 && userEmail.indexOf('.com') > -1) {
+        listedUsers.UserName = userName
+        listedUsers.Email = userEmail
+        listedUsers.Balance = userBalance
+        list.push(listedUsers)
+        console.log(list)
+        console.log(userListLocal)
+        userListLocal.push(...list)
+        localStorage.setItem('userListKey', JSON.stringify(userListLocal))
+        setUser({ ...user, userList: list })
+        setUser({ ...user, userName: '', userEmail: '', userBalance: 0 }) //input placeholder reset after creating a user
+      } else if (userEmail.indexOf('@') == -1 && userEmail.indexOf('.com') == -1) {
+        alert(`Email ${userEmail} is not a valid email address`)
+        setUser({ ...user, userEmail: '' }) //input placeholder update when there is an error
+      } else if (userList.some(emailChecker)) {
+        alert(`Email ${userEmail} is already in use`)
+        setUser({ ...user, userEmail: '' }) //input placeholder update when there is an error
+      }
+    }
   }
 
   //Prevent from reloading
@@ -193,51 +200,62 @@ export default function UserDisplay() {
     return object.Email === userEmail
   }
 
-  const userListLocal = JSON.parse(localStorage.getItem("userListKey"));
-  console.log(userListLocal)
-
-  // const userListLocal = [
-  //   { Name: 'Vincent Larisma', Email: 'vincentlarisma@gmail.com', Balance: 0, ID: 1659750502716 },
-  //   { Name: 'April Zarate', Email: 'aprilzarate@gmail.com', Balance: '10000', ID: 1659750523317 },
-  //   { Name: 'Gene Alvarez', Email: 'genealvarez@gmail.com', Balance: '100000', ID: 1659750544185 },
-  //   { Name: 'John Doe', Email: 'johndoe@gmail.com', Balance: '69000', ID: 1659750557301 },
-  // ]
-
-  // useEffect(() => {
-  //   localStorage.setItem('userListKey', JSON.stringify(userListLocal))
-  // }, [])
-
-  // const onListHandler = (list) =>{
-	// 	setUser({ ...user, list });
-	// }
+  const userListLocal = [
+    {
+      UserName: 'vince',
+      Password: 'vince',
+      FullName: 'Vincent Larisma',
+      Email: 'vincentlarisma@gmail.com',
+      Gender: 'M',
+      Balance: 0,
+      ID: 1659750502716,
+    },
+    {
+      UserName: 'april',
+      Password: 'april',
+      FullName: 'April Zarate',
+      Email: 'aprilzarate@gmail.com',
+      Balance: '10000',
+      ID: 1659750523317,
+    },
+    {
+      UserName: 'gene',
+      Password: 'gene',
+      FullName: 'Gene Alvarez',
+      Email: 'genealvarez@gmail.com',
+      Balance: '100000',
+      ID: 1659750544185,
+    },
+    {
+      UserName: 'john',
+      Password: 'john',
+      FullName: 'John Doe',
+      Email: 'johndoe@gmail.com',
+      Balance: '69000',
+      ID: 1659750557301,
+    },
+  ]
 
   return (
     <>
-    <Modal
-      method='deposit'
-      isOpen={depositModal}
-      toggleModal={toggleDepositModal}
-      handleClickNewDeposit={handleClickNewDeposit}
-    />
-    <Modal
-      method='withdraw'
-      isOpen={withdrawModal}
-      toggleModal={toggleWithdrawModal}
-      handleClickNewWithdraw={handleClickNewWithdraw}
-    />
-    <Modal
-      method='transfer'
-      isOpen={transferModal}
-      toggleModal={toggleTransferModal}
-      handleClickNewTransfer={handleClickNewTransfer}
-    />
-    
-    
-    {/* <Register 
-      onThis={onListHandler}
-    /> */}
-
-      
+      <Modal
+        method='deposit'
+        isOpen={depositModal}
+        toggleModal={toggleDepositModal}
+        handleClickNewDeposit={handleClickNewDeposit}
+      />
+      <Modal
+        method='withdraw'
+        isOpen={withdrawModal}
+        toggleModal={toggleWithdrawModal}
+        handleClickNewWithdraw={handleClickNewWithdraw}
+      />
+      <Modal
+        method='transfer'
+        isOpen={transferModal}
+        toggleModal={toggleTransferModal}
+        handleClickNewTransfer={handleClickNewTransfer}
+      />
 
       <div className='grid'>
         <div className='container notification m-4 grid-total-user'>
@@ -311,10 +329,10 @@ export default function UserDisplay() {
           <tbody>
             {/* Displays the userList  */}
             {userList.length ? (
-              userList.map(({ FullName, Email, Balance, ID }, index) => {
+              userList.map(({ UserName, Email, Balance, ID }, index) => {
                 return (
                   <tr key={index}>
-                    <td>{FullName}</td>
+                    <td>{UserName}</td>
                     <td>{ID}</td>
                     <td>{Email}</td>
                     <td>${Balance}</td>

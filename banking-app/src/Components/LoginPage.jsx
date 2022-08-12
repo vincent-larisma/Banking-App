@@ -10,10 +10,9 @@ export default function LoginPage() {
   const [dataBase, setDataBase] = useState({
     name: '',
     password: '',
-    userType: '',
   })
 
-  const { userName, password, userType } = dataBase
+  const { userName, password } = dataBase
 
   const dataBaseList = [
     { name: 'admin', password: 'admin', userType: 'admin' },
@@ -56,7 +55,7 @@ export default function LoginPage() {
       <Navbar />
       <div className='container grid login-form flex-container '>
         <div className='field m-6 grid-login notification grid-center is-info is-light'>
-          <div className='title text-center'>Login</div>
+          <div className='title text-center'>Bank</div>
           <div className='field'>
             <p className='control has-icons-left has-icons-right'>
               <input
@@ -87,11 +86,11 @@ export default function LoginPage() {
               </span>
             </p>
           </div>
-          <button className='button is-success m-2' onClick={handleClickRegister}>
-            Create User
-          </button>
+          <a className='is-size-7 pb-3' onClick={handleClickRegister}>
+            Create User?
+          </a>
           <button className='button is-success m-2' onClick={handleClickSubmit}>
-            Submit
+            Login
           </button>
         </div>
       </div>
