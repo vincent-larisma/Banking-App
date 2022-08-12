@@ -6,6 +6,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 
 export default function LoginPage() {
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
   const navigate = useNavigate()
   const [dataBase, setDataBase] = useState({
     name: '',
@@ -14,10 +15,7 @@ export default function LoginPage() {
 
   const { userName, password } = dataBase
 
-  const dataBaseList = [
-    { name: 'admin', password: 'admin', userType: 'admin' },
-    { name: 'hello', password: 'hello', userType: 'admin' },
-  ]
+  const dataBaseList = [{ name: 'admin', password: 'admin', userType: 'admin' }]
 
   const handleChangeName = (e) => {
     const { value, name } = e.target
@@ -40,7 +38,11 @@ export default function LoginPage() {
     if (password !== '' && userName !== '') {
       if (dataBaseList.some(nameCheck) && dataBaseList.some(passCheck)) {
         navigate('/Dashboard')
-      } else {
+      }
+      // else if (userListLocalStorage.Email.indexOf()) {
+
+      // }
+      else {
         alert('Please enter the correct username and password!')
       }
     }

@@ -8,7 +8,7 @@ export default function UserDisplay() {
     userName: '',
     password: '',
     userBalance: 0,
-    userList: [],
+    userList: userListLocalStorage,
   }) //Contains the user input
 
   const [newUserBalance, setNewUserBalance] = useState({
@@ -79,8 +79,8 @@ export default function UserDisplay() {
         listedUsers.Email = userEmail
         listedUsers.Balance = userBalance
         list.push(listedUsers)
-        userListLocal.push(...list)
-        localStorage.setItem('userListKey', JSON.stringify(userListLocal))
+        userListLocalStorage.push(...list)
+        localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
         setUser({ ...user, userList: list })
         setUser({ ...user, userName: '', userEmail: '', userBalance: 0 }) //input placeholder reset after creating a user
       } else if (userEmail.indexOf('@') == -1 && userEmail.indexOf('.com') == -1) {
@@ -266,7 +266,7 @@ export default function UserDisplay() {
               <span>Total Users</span>
             </span>
           </div>
-          <div className='title flex-center'>{userListLocalStorage.length}</div>
+          <div className='title flex-center'>{userList.length}</div>
         </div>
         <div className='container notification m-4 grid-local-storage grid-container '>
           <div className='subtitle text-center'>
@@ -327,11 +327,11 @@ export default function UserDisplay() {
           </thead>
           <tbody>
             {/* Displays the userList  */}
-            {userListLocalStorage.length ? (
-              userListLocalStorage.map(({ UserName, FullName, Email, Balance, ID }, index) => {
+            {userList.length ? (
+              userList.map(({ UserName, Email, Balance, ID }, index) => {
                 return (
                   <tr key={index}>
-                    <td>{FullName == '' ? UserName : FullName}</td>
+                    <td>{UserName}</td>
                     <td>{ID}</td>
                     <td>{Email}</td>
                     <td>${Balance}</td>
