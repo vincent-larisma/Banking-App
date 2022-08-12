@@ -325,7 +325,7 @@ export default function UserDisplay() {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='table-container'>
             {/* Displays the userList  */}
             {userList.length ? (
               userList.map(({ UserName, Email, Balance, ID }, index) => {

@@ -48,3 +48,8 @@
 .form-size {
   height: 350px;
 }
+
+.table-container {
+  max-height: 10rem;
+  overflow-y: scroll;
+}

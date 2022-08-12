@@ -2,12 +2,13 @@ import React from 'react'
 
 export default function HomePage({ index }) {
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
-  let user = userListLocalStorage[index]
+
+  let user = JSON.stringify(userListLocalStorage[index])
 
   //currency format
-  function formatToCurrency(amount) {
-    return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
-  }
+  // function formatToCurrency(amount) {
+  //   return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+  // }
 
   return (
     <>
@@ -32,7 +33,7 @@ export default function HomePage({ index }) {
               </div>
               <div class='column is-0'></div>
 
-              <div class='column notification is-link'>
+              <div className='column notification is-link'>
                 <h1 className='subtitle'>
                   <i class='fa-solid fa-credit-card'></i> Membership:
                 </h1>
@@ -51,7 +52,7 @@ export default function HomePage({ index }) {
               <h1 className='subtitle'>
                 <i class='fa-solid fa-wallet'></i> Total Cash Amount:
               </h1>
-              <h1 className='title has-text-centered'>${formatToCurrency(user.Balance)}</h1>
+              {/* <h1 className='title has-text-centered'>${formatToCurrency(user.Balance)}</h1> */}
             </div>
           </div>
         </section>
