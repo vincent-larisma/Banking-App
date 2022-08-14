@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function HomePage({ index }) {
-  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey '))
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
 
   let user = userListLocalStorage[index]
   // currency format
@@ -37,9 +37,9 @@ export default function HomePage({ index }) {
                   <i class='fa-solid fa-credit-card'></i> Membership:
                 </h1>
                 <h1 className='title has-text-centered'>
-                  {user.Balance > 100000
+                  {user.Balance > 100000 && user.Balance < 1000000
                     ? 'Silver Member'
-                    : user.Balance > 1000000
+                    : user.Balance > 1000000 && user.Balance < 10000000
                     ? 'Gold Member'
                     : user.Balance > 10000000
                     ? 'Platinum Member'

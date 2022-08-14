@@ -7,7 +7,11 @@ import Footer from './Footer'
 
 export default function LoginPage() {
   useEffect(() => {
-    localStorage.setItem('userListKey', JSON.stringify(userListLocal))
+    if (userListLocalStorage != undefined) {
+      //do nothing
+    } else {
+      localStorage.setItem('userListKey', JSON.stringify(userListLocal))
+    }
   }, [])
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
 
