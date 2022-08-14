@@ -30,19 +30,29 @@ export default function HistoryPage({ index }) {
                     <th>Amount</th>
                   </thead>
                   <tbody>
-                    {userHistory.length
-                      ? userHistory.map(({ date, type, amount }, index) => {
-                          return (
-                            <tr key={index}>
-                              <td>{date}</td>
-                              <th>{type}</th>
-                              <th className={type == 'Withdraw' ? 'has-text-danger' : 'has-text-success'}>
-                                $ {formatToCurrency(amount)}
-                              </th>
-                            </tr>
-                          )
-                        })
-                      : null}
+                    {userHistory.length ? (
+                      userHistory.map(({ date, type, amount }, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{date}</td>
+                            <th>{type}</th>
+                            <th className={type == 'Withdraw' ? 'has-text-danger' : 'has-text-success'}>
+                              $ {formatToCurrency(amount)}
+                            </th>
+                          </tr>
+                        )
+                      })
+                    ) : (
+                      <th
+                        colSpan='5'
+                        className='table-size subtitle'
+                        style={{
+                          textAlign: 'center',
+                          fontWeight: 'bold',
+                        }}>
+                        No History
+                      </th>
+                    )}
                   </tbody>
                 </table>
               </div>

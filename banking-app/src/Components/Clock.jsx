@@ -7,7 +7,7 @@ export default function Clock() {
   useEffect(() => {
     setInterval(() => {
       setClock(time.toLocaleTimeString())
-    }, 1000)
+    }, 2000)
   }, [time])
   return (
     <div className='container text-center'>

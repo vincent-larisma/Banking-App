@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Clock from './Clock'
 
 export default function SideBar({ handleClickPage }) {
   const navigate = useNavigate()

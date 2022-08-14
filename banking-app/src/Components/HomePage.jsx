@@ -4,6 +4,7 @@ export default function HomePage({ index }) {
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
 
   let user = userListLocalStorage[index]
+
   // currency format
   function formatToCurrency(amount) {
     return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
@@ -12,6 +13,7 @@ export default function HomePage({ index }) {
   useEffect(() => {
     if (!user.hasOwnProperty('History')) {
       user.History = []
+      localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
     }
   }, [])
 
