@@ -6,11 +6,11 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 
 export default function LoginPage() {
-  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
-
   useEffect(() => {
     localStorage.setItem('userListKey', JSON.stringify(userListLocal))
   }, [])
+
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userNewListKey'))
 
   const navigate = useNavigate()
   const [dataBase, setDataBase] = useState({
@@ -54,7 +54,7 @@ export default function LoginPage() {
       Password: 'gene',
       FullName: 'Gene Alvarez',
       Email: 'genealvarez@gmail.com',
-      Balance: '100000',
+      Balance: '100000000',
       ID: 1659750544185,
     },
     {

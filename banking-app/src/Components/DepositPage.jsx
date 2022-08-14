@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function ({ index }) {
-  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userNewListKey'))
   let user = userListLocalStorage[index]
 
   //currency format
@@ -30,7 +30,7 @@ export default function ({ index }) {
               <div className='column notification is-link'>
                 <h1 className='subtitle'>Total Amount in Bank: </h1>
                 <div className='container notification is-link is-light'>
-                  <h1 className='title has-text-centered'>$ {formatToCurrency(user.Balance)}</h1>
+                  <h1 className='title has-text-centered'>$ {formatToCurrency(parseInt(user.Balance))}</h1>
                 </div>
               </div>
             </div>

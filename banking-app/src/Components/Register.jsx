@@ -69,7 +69,7 @@ export default function Register() {
     listedUsers.Gender = userGender
     listedUsers.Balance = userBalance
     userListLocalStorage.push(listedUsers)
-    localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
+    localStorage.setItem('userNewListKey', JSON.stringify(userListLocalStorage))
     setList({ ...list, userList: newList })
     navigate('/Login')
   }
@@ -128,7 +128,7 @@ export default function Register() {
             <form className='gender'>
               <p>Gender</p>
               <input className='radio' type='radio' name='userGender' value='male' onChange={handleUserGender} />
-              <label for='label-male'>M</label>
+              <label htmlFor='label-male'>M</label>
               <input
                 className='input-genderF'
                 type='radio'
@@ -136,7 +136,7 @@ export default function Register() {
                 value='female'
                 onChange={handleUserGender}
               />
-              <label for='label-female'>F</label>
+              <label htmlFor='label-female'>F</label>
             </form>
             <div className='initial-balance'>
               <label className='initial-balance-label'>Balance</label>
