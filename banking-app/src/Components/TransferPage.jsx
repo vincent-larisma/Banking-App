@@ -19,7 +19,13 @@ export default function TransferPage({ index }) {
   const handleClickTransfer = () => {
     for (let i = 0; i < userListLocalStorage.length; i++) {
       if (userListLocalStorage[i].ID == transferID) {
-        console.log('user', userListLocalStorage[i])
+        if (
+          window.confirm(
+            `Please confirm if you want to transfer $${transferValue} to ${userListLocalStorage[i].FullName}?`
+          )
+        ) {
+          console.log('working')
+        }
       }
     }
     setTransferState({ ...transferState, transferValue: '', transferID: '' })
