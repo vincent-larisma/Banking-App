@@ -69,7 +69,7 @@ export default function Register() {
     listedUsers.Gender = userGender
     listedUsers.Balance = userBalance
     userListLocalStorage.push(listedUsers)
-    localStorage.setItem('userNewListKey', JSON.stringify(userListLocalStorage))
+    localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
     setList({ ...list, userList: newList })
     navigate('/Login')
   }

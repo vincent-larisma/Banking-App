@@ -9,8 +9,7 @@ export default function LoginPage() {
   useEffect(() => {
     localStorage.setItem('userListKey', JSON.stringify(userListLocal))
   }, [])
-
-  let userListLocalStorage = JSON.parse(localStorage.getItem('userNewListKey'))
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
 
   const navigate = useNavigate()
   const [dataBase, setDataBase] = useState({

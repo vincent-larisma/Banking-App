@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function HomePage({ index }) {
-  let userListLocalStorage = JSON.parse(localStorage.getItem('userNewListKey'))
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey '))
 
   let user = userListLocalStorage[index]
   // currency format
