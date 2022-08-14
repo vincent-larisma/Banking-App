@@ -17,15 +17,12 @@ export default function TransferPage({ index }) {
   }
 
   const handleClickTransfer = () => {
+    localStorage.setItem('transferAmountTemporary', transferValue)
+    let transferAmountTemporary = JSON.parse(localStorage.getItem('transferAmountTemporary'))
     for (let i = 0; i < userListLocalStorage.length; i++) {
-      if (userListLocalStorage[i].ID == transferID) {
-        if (
-          window.confirm(
-            `Please confirm if you want to transfer $${transferValue} to ${userListLocalStorage[i].FullName}?`
-          )
-        ) {
-          console.log('working')
-        }
+      if (userListLocalStorage[i].ID === transferID) {
+        
+        console.log(transferAmountTemporary)
       }
     }
     setTransferState({ ...transferState, transferValue: '', transferID: '' })
@@ -74,7 +71,11 @@ export default function TransferPage({ index }) {
                     value={transferValue}
                     onChange={handleChangeTransferValue}
                   />
-                  <button class='button is-success has-text-centered' onClick={handleClickTransfer}>
+
+                  <button
+                    className='button is-success has-text-centered js-modal-trigger'
+                    data-target='modal-js-example'
+                    onClick={handleClickTransfer}>
                     Confirmed
                   </button>
                 </div>
