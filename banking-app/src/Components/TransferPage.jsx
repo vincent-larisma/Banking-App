@@ -3,30 +3,30 @@ import React, { useState } from 'react'
 export default function TransferPage({ index }) {
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
   let user = userListLocalStorage[index]
-  const [transferState, setTransferState] = useState({ transferValue: '', transferID: '' })
+  const [transferState, setTransferState] = useState({ transferID: '', transferValue: '' })
 
-  const { transferValue, transferID } = transferState
+  const { transferID, transferValue } = transferState
 
   const handleChangeTransferID = (e) => {
     const { name, value } = e.target
-    setTransferState({ [name]: parseInt(value) })
+    setTransferState({ ...transferState, [name]: parseInt(value) })
   }
+
   const handleChangeTransferValue = (e) => {
     const { name, value } = e.target
-    setTransferState({ [name]: parseInt(value) })
+    setTransferState({ ...transferState, [name]: parseInt(value) })
   }
 
   const handleClickTransfer = () => {
-    console.log('ID', transferID)
-    localStorage.setItem('transferIDsTemporary', transferID)
-    localStorage.setItem('transferAmountTemporary', transferValue)
-    const transferIDTemporary = localStorage.getItem('transferIDsTemporary')
-    const transferAmountTemporary = localStorage.getItem('transferAmountTemporary')
-    // for (let i = 0; i < userListLocalStorage.length; i++) {
-    //   if (userListLocalStorage[i].ID === transferIDTemporary) {
-    //     console.log('Working')
-    //   }
-    // }
+    for (let i = 0; i < userListLocalStorage.length; i++) {
+      if (userListLocalStorage[i].ID === transferID) {
+        if (window.confirm(`Are you sure you to transfer $${transferValue} to ${userListLocalStorage[i].FullName}?`)) {
+          user.Balance = parseInt(user.Balance) - parseInt(transferValue)
+          userListLocalStorage[i].Balance = parseInt(userListLocalStorage[i].Balance) + parseInt(transferValue)
+          localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
+        }
+      }
+    }
     setTransferState({ ...transferState, transferID: '', transferValue: '' })
   }
 
@@ -51,11 +51,12 @@ export default function TransferPage({ index }) {
                   <h1 className='title has-text-centered'>$ {formatToCurrency(parseInt(user.Balance))}</h1>
                 </div>
               </div>
+
               <div className='column notification is-link is-half is-offset-one-quarter'>
                 <div className='column'>
                   <h1 className='subtitle'>Reciever's ID:</h1>
                   <input
-                    class='input is-link  is-large'
+                    className='input is-link  is-large'
                     type='number'
                     placeholder='Input ID'
                     name='transferID'
@@ -66,7 +67,7 @@ export default function TransferPage({ index }) {
                 <div className='column'>
                   <h1 className='subtitle'>Amount Transferable: </h1>
                   <input
-                    class='input is-link  is-large mb-2'
+                    className='input is-link  is-large mb-2'
                     type='number'
                     placeholder='$ Amount'
                     name='transferValue'
