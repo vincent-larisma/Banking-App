@@ -1,0 +1,20 @@
+.sidebar-margin {
+  margin-left: 10rem;
+}
+
+.side-bar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  min-width: 10rem;
+  height: 100vh;
+}
+a :hover {
+  background-color: white;
+  color: black;
+}
+
+.notification {
+  margin-bottom: 1.5rem;
+}

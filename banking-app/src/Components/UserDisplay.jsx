@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Modal from './Modal'
 
 export default function UserDisplay() {
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
   const [user, setUser] = useState({
     userEmail: '',
     userName: '',
+    password: '',
     userBalance: 0,
-    userList: [],
+    userList: userListLocalStorage,
   }) //Contains the user input
 
   const [newUserBalance, setNewUserBalance] = useState({
@@ -17,7 +19,7 @@ export default function UserDisplay() {
     editIndex: '',
   })
 
-  const { editIndex, userBalanceDeposit, userBalanceWithdraw, userBalanceTransfer, userToTransfer } = newUserBalance
+  const { editIndex, userBalanceWithdraw, userBalanceTransfer, userToTransfer } = newUserBalance
 
   const [isUpdateDeposit, setIsUpdateDeposit] = useState(false)
   const [isUpdateWithdraw, setIsUpdateWithdraw] = useState(false)
@@ -57,22 +59,28 @@ export default function UserDisplay() {
     setUser({ ...user, [name]: value })
   }
 
-  const emailRestriction = () => {
-    return
-  }
-
   //Push the user input to userList
   const handleClickCreateUser = () => {
     let list = userList
-
-    const listedUsers = { Name: '', Email: '', Balance: 0, ID: Date.now() }
+    const listedUsers = {
+      UserName: '',
+      Password: Date.now(),
+      FullName: '',
+      Email: '',
+      Gender: 'Not Found',
+      Balance: 0,
+      ID: Date.now(),
+      isAdmin: false,
+    }
     //Don't create users if email or name is empty
     if (userName !== '' && userEmail !== '') {
       if (!userList.some(emailChecker) && userEmail.indexOf('@') > -1 && userEmail.indexOf('.com') > -1) {
-        listedUsers.Name = userName
+        listedUsers.UserName = userName
         listedUsers.Email = userEmail
         listedUsers.Balance = userBalance
         list.push(listedUsers)
+        userListLocalStorage.push(...list)
+        localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
         setUser({ ...user, userList: list })
         setUser({ ...user, userName: '', userEmail: '', userBalance: 0 }) //input placeholder reset after creating a user
       } else if (userEmail.indexOf('@') == -1 && userEmail.indexOf('.com') == -1) {
@@ -178,9 +186,11 @@ export default function UserDisplay() {
     let list = userList
     if (list.length === 0) {
       alert('No Users Yet') // no users yet
+      return
     }
     if (list.length === 1) {
       alert('You only have 1 user') // only 1 user
+      return
     }
     setTransferModal(!transferModal)
   }
@@ -190,15 +200,8 @@ export default function UserDisplay() {
   }
 
   const userListLocal = [
-    { Name: 'Vincent Larisma', Email: 'vincentlarisma@gmail.com', Balance: 0, ID: 1659750502716 },
-    { Name: 'April Zarate', Email: 'aprilzarate@gmail.com', Balance: '10000', ID: 1659750523317 },
-    { Name: 'Gene Alvarez', Email: 'genealvarez@gmail.com', Balance: '100000', ID: 1659750544185 },
-    { Name: 'John Doe', Email: 'johndoe@gmail.com', Balance: '69000', ID: 1659750557301 },
+    
   ]
-
-  useEffect(() => {
-    localStorage.setItem('userListKey', JSON.stringify(userListLocal))
-  }, [])
 
   return (
     <>
@@ -235,9 +238,9 @@ export default function UserDisplay() {
         </div>
         <div className='container notification m-4 grid-local-storage grid-container '>
           <div className='subtitle text-center'>
-            <span class='icon-text'>
-              <span class='icon'>
-                <i class='fa-solid fa-download'></i>
+            <span className='icon-text'>
+              <span className='icon'>
+                <i className='fa-solid fa-download'></i>
               </span>
               <span>LocalStorage</span>
             </span>
@@ -290,13 +293,13 @@ export default function UserDisplay() {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='table-container'>
             {/* Displays the userList  */}
             {userList.length ? (
-              userList.map(({ Name, Email, Balance, ID }, index) => {
+              userList.map(({ UserName, Email, Balance, ID }, index) => {
                 return (
                   <tr key={index}>
-                    <td>{Name}</td>
+                    <td>{UserName}</td>
                     <td>{ID}</td>
                     <td>{Email}</td>
                     <td>${Balance}</td>
