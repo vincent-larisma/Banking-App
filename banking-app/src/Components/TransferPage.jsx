@@ -17,15 +17,17 @@ export default function TransferPage({ index }) {
   }
 
   const handleClickTransfer = () => {
+    console.log('ID', transferID)
+    localStorage.setItem('transferIDsTemporary', transferID)
     localStorage.setItem('transferAmountTemporary', transferValue)
-    let transferAmountTemporary = JSON.parse(localStorage.getItem('transferAmountTemporary'))
-    for (let i = 0; i < userListLocalStorage.length; i++) {
-      if (userListLocalStorage[i].ID === transferID) {
-        
-        console.log(transferAmountTemporary)
-      }
-    }
-    setTransferState({ ...transferState, transferValue: '', transferID: '' })
+    const transferIDTemporary = localStorage.getItem('transferIDsTemporary')
+    const transferAmountTemporary = localStorage.getItem('transferAmountTemporary')
+    // for (let i = 0; i < userListLocalStorage.length; i++) {
+    //   if (userListLocalStorage[i].ID === transferIDTemporary) {
+    //     console.log('Working')
+    //   }
+    // }
+    setTransferState({ ...transferState, transferID: '', transferValue: '' })
   }
 
   //currency format
@@ -72,10 +74,7 @@ export default function TransferPage({ index }) {
                     onChange={handleChangeTransferValue}
                   />
 
-                  <button
-                    className='button is-success has-text-centered js-modal-trigger'
-                    data-target='modal-js-example'
-                    onClick={handleClickTransfer}>
+                  <button className='button is-success has-text-centered' onClick={handleClickTransfer}>
                     Confirmed
                   </button>
                 </div>
