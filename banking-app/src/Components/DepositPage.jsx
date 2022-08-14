@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 export default function ({ index }) {
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
   let user = userListLocalStorage[index]
+  const time = new Date()
   const [depositState, setDepositState] = useState({ depositValue: '' })
-
   const { depositValue } = depositState
 
   const handleChangeDeposit = (e) => {
@@ -13,8 +13,13 @@ export default function ({ index }) {
   }
 
   const handleClickDeposit = () => {
-    user.Balance = parseInt(user.Balance) + parseInt(depositValue)
-    localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
+    if (parseInt(depositValue) < 0) {
+      alert('Cannot deposit a negative amount')
+    } else {
+      user.Balance = parseInt(user.Balance) + parseInt(depositValue)
+      user.History.push({ type: 'Deposit', date: time.toLocaleDateString(), amount: depositValue })
+      localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
+    }
     setDepositState({ depositValue: '' })
   }
 

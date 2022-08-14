@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function HomePage({ index }) {
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
@@ -8,6 +8,12 @@ export default function HomePage({ index }) {
   function formatToCurrency(amount) {
     return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
   }
+
+  useEffect(() => {
+    if (!user.hasOwnProperty('History')) {
+      user.History = []
+    }
+  }, [])
 
   return (
     <>

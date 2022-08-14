@@ -1,7 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 
+export default function HistoryPage({ index }) {
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
+  let user = userListLocalStorage[index]
+  let userHistory = user.History
 
-export default function HistoryPage() {
+  //currency format
+  function formatToCurrency(amount) {
+    return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+  }
   return (
     <>
       <div className='sidebar-margin '>
@@ -19,14 +26,23 @@ export default function HistoryPage() {
                   <thead>
                     <th>Date</th>
                     <th>Type</th>
+
                     <th>Amount</th>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Hello</td>
-                      <th>Hello</th>
-                      <th>Hello</th>
-                    </tr>
+                    {userHistory.length
+                      ? userHistory.map(({ date, type, amount }, index) => {
+                          return (
+                            <tr key={index}>
+                              <td>{date}</td>
+                              <th>{type}</th>
+                              <th className={type == 'Withdraw' ? 'has-text-danger' : 'has-text-success'}>
+                                $ {formatToCurrency(amount)}
+                              </th>
+                            </tr>
+                          )
+                        })
+                      : null}
                   </tbody>
                 </table>
               </div>

@@ -4,7 +4,7 @@ export default function TransferPage({ index }) {
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
   let user = userListLocalStorage[index]
   const [transferState, setTransferState] = useState({ transferID: '', transferValue: '' })
-
+  const time = new Date()
   const { transferID, transferValue } = transferState
 
   const handleChangeTransferID = (e) => {
@@ -20,6 +20,8 @@ export default function TransferPage({ index }) {
   const handleClickTransfer = () => {
     if (parseInt(transferValue) > parseInt(user.Balance)) {
       alert('Transfer Failed')
+    } else if (transferID == '' || transferValue == '') {
+      alert('Please input a transfer ID or Amount')
     } else {
       for (let i = 0; i < userListLocalStorage.length; i++) {
         if (userListLocalStorage[i].ID === transferID) {
@@ -27,6 +29,11 @@ export default function TransferPage({ index }) {
             window.confirm(`Are you sure you to transfer $${transferValue} to ${userListLocalStorage[i].FullName}?`)
           ) {
             user.Balance = parseInt(user.Balance) - parseInt(transferValue)
+            user.History.push({
+              type: `Transfer (to ${userListLocalStorage[i].FullName})`,
+              date: time.toLocaleDateString(),
+              amount: transferValue,
+            })
             userListLocalStorage[i].Balance = parseInt(userListLocalStorage[i].Balance) + parseInt(transferValue)
             localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
           }

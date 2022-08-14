@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 export default function WithdrawPage({ index }) {
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
   let user = userListLocalStorage[index]
+  const time = new Date()
   const [withdrawState, setWithdrawState] = useState({ withdrawValue: '' })
 
   const { withdrawValue } = withdrawState
@@ -15,8 +16,11 @@ export default function WithdrawPage({ index }) {
   const handleClickDeposit = () => {
     if (user.Balance <= 0) {
       alert('Withdraw cannot be more than your balance')
+    } else if (parseInt(withdrawValue) < 0) {
+      alert('Cannot withdraw a negative amount')
     } else {
       user.Balance = parseInt(user.Balance) - parseInt(withdrawValue)
+      user.History.push({ type: 'Withdraw', date: time.toLocaleDateString(), amount: withdrawValue })
       localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
       setWithdrawState({ withdrawValue: '' })
     }
