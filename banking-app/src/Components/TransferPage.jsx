@@ -18,12 +18,18 @@ export default function TransferPage({ index }) {
   }
 
   const handleClickTransfer = () => {
-    for (let i = 0; i < userListLocalStorage.length; i++) {
-      if (userListLocalStorage[i].ID === transferID) {
-        if (window.confirm(`Are you sure you to transfer $${transferValue} to ${userListLocalStorage[i].FullName}?`)) {
-          user.Balance = parseInt(user.Balance) - parseInt(transferValue)
-          userListLocalStorage[i].Balance = parseInt(userListLocalStorage[i].Balance) + parseInt(transferValue)
-          localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
+    if (parseInt(transferValue) > parseInt(user.Balance)) {
+      alert('Transfer Failed')
+    } else {
+      for (let i = 0; i < userListLocalStorage.length; i++) {
+        if (userListLocalStorage[i].ID === transferID) {
+          if (
+            window.confirm(`Are you sure you to transfer $${transferValue} to ${userListLocalStorage[i].FullName}?`)
+          ) {
+            user.Balance = parseInt(user.Balance) - parseInt(transferValue)
+            userListLocalStorage[i].Balance = parseInt(userListLocalStorage[i].Balance) + parseInt(transferValue)
+            localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
+          }
         }
       }
     }
