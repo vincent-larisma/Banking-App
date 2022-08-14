@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
+  let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
   const navigate = useNavigate()
 
   const [list, setList] = useState({
@@ -51,7 +52,6 @@ export default function Register() {
 
   const handleClickRegister = () => {
     let newList = userList
-    let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
     let listedUsers = {
       UserName: '',
       Password: '',
