@@ -1,8 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function TransferPage({ index }) {
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
   let user = userListLocalStorage[index]
+  const [transferState, setTransferState] = useState({ transferValue: '', transferID: '' })
+
+  const { transferValue, transferID } = transferState
+
+  const handleChangeTransferID = (e) => {
+    const { name, value } = e.target
+    setTransferState({ [name]: parseInt(value) })
+  }
+  const handleChangeTransferValue = (e) => {
+    const { name, value } = e.target
+    setTransferState({ [name]: parseInt(value) })
+  }
+
+  const handleClickTransfer = () => {
+    for (let i = 0; i < userListLocalStorage.length; i++) {
+      if (userListLocalStorage[i].ID == transferID) {
+        console.log('user', userListLocalStorage[i])
+      }
+    }
+    setTransferState({ ...transferState, transferValue: '', transferID: '' })
+  }
 
   //currency format
   function formatToCurrency(amount) {
@@ -28,12 +49,28 @@ export default function TransferPage({ index }) {
               <div className='column notification is-link is-half is-offset-one-quarter'>
                 <div className='column'>
                   <h1 className='subtitle'>Reciever's ID:</h1>
-                  <input class='input is-link  is-large' type='number' placeholder='Input ID' />
+                  <input
+                    class='input is-link  is-large'
+                    type='number'
+                    placeholder='Input ID'
+                    name='transferID'
+                    value={transferID}
+                    onChange={handleChangeTransferID}
+                  />
                 </div>
                 <div className='column'>
                   <h1 className='subtitle'>Amount Transferable: </h1>
-                  <input class='input is-link  is-large mb-2' type='number' placeholder='$ Amount' />
-                  <button class='button is-success has-text-centered'>Confirmed</button>
+                  <input
+                    class='input is-link  is-large mb-2'
+                    type='number'
+                    placeholder='$ Amount'
+                    name='transferValue'
+                    value={transferValue}
+                    onChange={handleChangeTransferValue}
+                  />
+                  <button class='button is-success has-text-centered' onClick={handleClickTransfer}>
+                    Confirmed
+                  </button>
                 </div>
               </div>
             </div>

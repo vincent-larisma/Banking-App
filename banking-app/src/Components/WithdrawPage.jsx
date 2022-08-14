@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export default function WithdrawPage({index}) {
+export default function WithdrawPage({ index }) {
   let userListLocalStorage = JSON.parse(localStorage.getItem('userListKey'))
   let user = userListLocalStorage[index]
+  const [withdrawState, setWithdrawState] = useState({ withdrawValue: '' })
 
+  const { withdrawValue } = withdrawState
+
+  const handleChangeDeposit = (e) => {
+    const { name, value } = e.target
+    setWithdrawState({ [name]: parseInt(value) })
+  }
+
+  const handleClickDeposit = () => {
+    if (user.Balance <= 0) {
+      alert('Withdraw cannot be more than your balance')
+    } else {
+      user.Balance = parseInt(user.Balance) - parseInt(withdrawValue)
+      localStorage.setItem('userListKey', JSON.stringify(userListLocalStorage))
+      setWithdrawState({ withdrawValue: '' })
+    }
+  }
   //currency format
   function formatToCurrency(amount) {
     return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
@@ -21,8 +38,17 @@ export default function WithdrawPage({index}) {
             <div className='column notification is-link '>
               <h1 className='subtitle'>Amount Withdrawn: </h1>
               <div className='container'>
-                <input class='input is-link  is-large mb-2' type='number' placeholder='$ Amount' />
-                <button class='button is-success has-text-centered'>Confirmed</button>
+                <input
+                  class='input is-link  is-large mb-2'
+                  type='number'
+                  placeholder='$ Amount'
+                  name='withdrawValue'
+                  value={withdrawValue}
+                  onChange={handleChangeDeposit}
+                />
+                <button class='button is-success has-text-centered' onClick={handleClickDeposit}>
+                  Confirmed
+                </button>
               </div>
             </div>
             <div className='column is-0 '></div>
